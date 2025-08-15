@@ -1,0 +1,39 @@
+{
+  "name": "recipes-app-monorepo",
+  "version": "1.0.0",
+  "description": "Fullstack Recipes Application - Monorepo",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend-only": "cd backend && npm run dev",
+    "dev:frontend-only": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "start": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "recipes",
+    "fullstack",
+    "react",
+    "nodejs",
+    "mongodb",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "ISC"
+}
