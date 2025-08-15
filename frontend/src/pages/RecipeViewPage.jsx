@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import RecipeDetails from "../components/RecipeDetails/RecipeDetails";
+import RecipeDetails from "../components/recipes/RecipeDetails/RecipeDetails";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import Loader from "../components/Loader/Loader";
+import Loader from "../components/common/Loader/Loader";
 
 import { fetchById } from "../redux/recipes/operations";
 import {

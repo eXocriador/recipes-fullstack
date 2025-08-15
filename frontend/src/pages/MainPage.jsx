@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SearchBox from "../components/SearchBox/SearchBox";
-import ModalErrorWhileSaving from "../components/ModalErrorWhileSaving/ModalErrorWhileSaving";
-import ListWrapper from "../components/ListWrapper/ListWrapper";
-import Container from "../components/container/container";
+import SearchBox from "../components/ui/SearchBox/SearchBox";
+import ModalErrorWhileSaving from "../components/ui/ModalErrorWhileSaving/ModalErrorWhileSaving";
+import ListWrapper from "../components/common/ListWrapper/ListWrapper";
+import Container from "../components/common/container/container";
 const MainPage = () => {
   const [filter, setFilter] = useState({
     category: "",

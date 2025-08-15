@@ -1,10 +1,10 @@
 import css from "./App.module.css";
-import Layout from "../components/Layout/Layout.jsx";
+import Layout from "./layout/Layout.jsx";
 import { Toaster } from "react-hot-toast";
 import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage.jsx";
-import ListWrapper from "./ListWrapper/ListWrapper.jsx";
+import ListWrapper from "./common/ListWrapper/ListWrapper.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, refreshUser } from "../redux/auth/operations.js";
 import {
@@ -21,8 +21,8 @@ const AuthPage = lazy(() => import(`../pages/AuthPage.jsx`));
 const AddRecipePage = lazy(() => import(`../pages/AddRecipePage.jsx`));
 const ProfilePage = lazy(() => import(`../pages/ProfilePage/ProfilePage.jsx`));
 const RecipeViewPage = lazy(() => import(`../pages/RecipeViewPage.jsx`));
-const RestrictedRoute = lazy(() => import(`./RestrictedRoute.jsx`));
-const PrivateRoute = lazy(() => import(`./PrivateRoute.jsx`));
+const RestrictedRoute = lazy(() => import(`./auth/RestrictedRoute.jsx`));
+const PrivateRoute = lazy(() => import(`./auth/PrivateRoute.jsx`));
 
 export default function App() {
   const dispatch = useDispatch();

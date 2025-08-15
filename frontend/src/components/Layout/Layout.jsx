@@ -1,8 +1,8 @@
-import Header from "../Header/Header.jsx";
+import Header from "./Header/Header.jsx";
 import css from "./Layout.module.css";
 import { Outlet } from "react-router-dom";
-import Footer from "../footer/footer.jsx";
-import ModalMenuLogout from "../modalMenuLogout/modalMenuLogout.jsx";
+import Footer from "./Footer/footer.jsx";
+import ModalMenuLogout from "../ui/modalMenuLogout/modalMenuLogout.jsx";
 import { useState } from "react";
 export default function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
