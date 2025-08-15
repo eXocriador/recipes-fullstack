@@ -1,0 +1,98 @@
+.divCustomSelect {
+  width: 179px;
+}
+
+.divButton {
+  position: relative;
+}
+
+.listboxButton {
+  position: relative;
+  width: 100%;
+  cursor: default;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  padding: 4px 40px 4px 8px;
+  text-align: left;
+  text-decoration: #595d62;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0px 0px 4px 0px rgba(66, 68, 90, 1);
+}
+
+.listboxButton:focus {
+  outline: none;
+}
+
+.btnSpan1 {
+  display: block;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--gray);
+}
+
+.btnSpan2 {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
+}
+
+.listboxOptions {
+  position: absolute;
+  z-index: 10;
+  margin-top: 4px;
+  max-height: 262px;
+  width: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 8px;
+  outline: none;
+}
+
+.svg {
+  width: 16px;
+  height: 16px;
+  stroke: #000000;
+  fill: none;
+}
+
+.option {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  padding: 8px 8px 8px 12px;
+  width: 100%;
+  max-height: 80px;
+
+  /* cursor-pointer select-none py-2 pl-4 pr-4  */
+}
+
+.option:hover {
+  background-color: #d3d3d3;
+}
+
+.searchInput {
+  padding: 6px 4px 6px 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+@media (min-width: 1440px) {
+  .listboxButton {
+    box-shadow: none;
+  }
+}

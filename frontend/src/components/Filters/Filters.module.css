@@ -1,0 +1,166 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fbfcf8;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 361px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 32px;
+  color: #000;
+  margin-top: 48px;
+}
+
+.divFilters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.count {
+  font-weight: 600;
+  font-size: 18px;
+  color: #000;
+}
+
+.divDropdown {
+  position: relative;
+}
+
+.btnDropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0px;
+  top: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.divSelect {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  z-index: 100;
+  width: 300px;
+  /* background: red; */
+}
+
+.svg {
+  width: 24px;
+  height: 24px;
+  stroke: #000;
+  fill: #fbfcf8;
+}
+
+.btnReset {
+  position: relative;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--black);
+  margin-bottom: 16px;
+  padding: 4px 2px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.btnReset:before {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  background-color: #000;
+}
+
+.btnReset:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btnNone {
+  color: #fbfcf8;
+}
+
+.svgNone {
+  stroke: #fbfcf8;
+}
+
+.selectFilter {
+  border: 1px solid var(--light-gray);
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: 179px;
+  height: 33px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--gray);
+}
+
+.selectOpt {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--black);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 704px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .divFilters {
+    justify-content: flex-start;
+    gap: 208px;
+  }
+
+  /* .dropdown {
+    align-items: center;
+  } */
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1225px;
+  }
+
+  .divFilters {
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .btnReset {
+    margin-bottom: 0;
+  }
+
+  .divSelect {
+    gap: 24px;
+  }
+}

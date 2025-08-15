@@ -1,0 +1,11 @@
+.wrapper {
+  padding-top: 46px;
+  padding-bottom: 46px;
+  background: var(--background);
+}
+.title {
+  color: var(--black);
+  font-weight: 600;
+  font-size: 40px;
+}
+

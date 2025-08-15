@@ -1,0 +1,20 @@
+.preparationBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.preparationTitle {
+  font-weight: 600;
+  font-size: 32px;
+}
+.preparationText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* 768px styles repeat 320px */
+
+/* 1440px styles repeat 320px */

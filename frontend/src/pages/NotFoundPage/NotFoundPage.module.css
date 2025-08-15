@@ -1,0 +1,360 @@
+.container {
+  max-width: 360px;
+  margin: 0 auto;
+
+  color: var(--darck-brown-65-);
+  height: 70%;
+  width: 90%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sectionNotFound {
+  background-color: var(--light-beige);
+  height: 470px;
+  padding: 24px 0;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+  .sectionNotFound {
+    height: 600px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+    padding: 0 107.5px;
+  }
+  .sectionNotFound {
+    height: 700px;
+  }
+}
+/* 320 */
+.hatCont {
+  display: none;
+}
+
+.textBackHome {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.backHome {
+  text-decoration: underline;
+}
+.caption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headText {
+  text-transform: capitalize;
+  color: var(--darck-brown-65-);
+  font-family: "Satisfy", cursive;
+  font-size: 46px;
+  text-align: center;
+}
+
+.panWrapper {
+  transform: scale(0.6);
+  position: relative;
+  left: 8%;
+}
+.center {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: #8a8f99;
+  position: relative;
+  z-index: 2;
+  border: 1px solid var(--darck-brown-65-);
+}
+.center,
+.center::after,
+.center::before {
+  font-size: 90px;
+  font-family: "Satisfy", cursive;
+  position: absolute;
+  top: 20%;
+  color: #232732;
+}
+.center::after {
+  content: "4";
+  right: -86px;
+}
+.center::before {
+  content: "4";
+  left: -86px;
+}
+.subCenter {
+  height: 190px;
+  width: 190px;
+  border-radius: 50%;
+  background-color: #232732;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  margin: auto;
+}
+.handle {
+  height: 150px;
+  width: 40px;
+  position: absolute;
+  left: 202px;
+  top: 172px;
+  transform: rotate(-36deg);
+  background-color: #232732;
+  z-index: 2;
+  border-radius: 2px;
+}
+.handleSub {
+  height: 50px;
+  width: 25px;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 170px;
+  top: 165px;
+  transform: rotate(-38deg);
+  background-color: #8a8f99;
+}
+
+.egg {
+  width: 130px;
+  height: 130px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  animation: egg 2s ease-in infinite forwards;
+}
+@keyframes egg {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+.yolk {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: #f9d010;
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+  box-shadow: inset 50%, inset rgba(#fff, 0.3) 2px 2px 4px 6px,
+    inset #f9d010 2px 2px 4px 16px, inset rgba(#fff, 0.3) -2px -2px 12px 12px,
+    rgba(#000, 0.05) 0 0 2px 2px;
+}
+
+/* 768 */
+@media screen and (min-width: 768px) {
+  .hatCont {
+    display: block;
+  }
+  .hatCont {
+    height: 75px;
+    width: 75px;
+    position: relative;
+    transform: rotate(-30deg);
+    top: -15px;
+    animation: hat 1s infinite forwards;
+  }
+  @keyframes hat {
+    0%,
+    100% {
+      transform: rotate(-30deg);
+    }
+    50% {
+      transform: rotate(-25deg);
+    }
+  }
+
+  .hat {
+    height: 30px;
+    width: 40px;
+    border: 2px solid var(--darck-brown-65-);
+    border-top: none;
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+  }
+  .hat::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 38px;
+    border: 1px solid var(--darck-brown-65-);
+    bottom: 7px;
+    left: 0px;
+  }
+  .lines,
+  .lines::after,
+  .lines::before {
+    width: 0px;
+    height: 6px;
+    border: 1px solid var(--darck-brown-65-);
+    position: absolute;
+  }
+  .lines {
+    top: 50px;
+    left: 35px;
+  }
+  .lines::after {
+    content: "";
+    top: -1px;
+    left: 10px;
+  }
+  .lines::before {
+    content: "";
+    top: -1px;
+    right: 10px;
+  }
+  .left,
+  .leftOpp {
+    height: 30px;
+    width: 15px;
+    position: absolute;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    border: 2px solid var(--darck-brown-65-);
+    border-right: none;
+    top: 13px;
+    z-index: 2;
+    background-color: var(--light-beige);
+  }
+
+  .leftOpp {
+    transform: rotate(180deg);
+    right: 5px;
+  }
+  .top {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    left: 14px;
+    border: 2px solid var(--darck-brown-65-);
+    border-bottom: none;
+    background-color: var(--light-beige);
+  }
+  .headText {
+    font-size: 50px;
+  }
+  .panWrapper {
+    transform: scale(0.6);
+    position: relative;
+    left: 15%;
+  }
+  .center {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background-color: #8a8f99;
+    position: relative;
+    z-index: 2;
+    border: 1px solid var(--darck-brown-65-);
+  }
+  .center,
+  .center::after,
+  .center::before {
+    font-size: 240px;
+    font-family: "Satisfy", cursive;
+    position: absolute;
+    top: 0%;
+    color: #232732;
+  }
+  .center::after {
+    content: "4";
+    right: -150px;
+  }
+  .center::before {
+    content: "4";
+    left: -150px;
+  }
+  .subCenter {
+    height: 260px;
+    width: 260px;
+    border-radius: 50%;
+    background-color: #232732;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    margin: auto;
+  }
+  .handle {
+    height: 150px;
+    width: 40px;
+    position: absolute;
+    left: 270px;
+    top: 288px;
+    transform: rotate(-35deg);
+    background-color: #232732;
+    z-index: 2;
+    border-radius: 2px;
+  }
+  .handleSub {
+    height: 50px;
+    width: 25px;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 230px;
+    top: 270px;
+    transform: rotate(-38deg);
+    background-color: #8a8f99;
+  }
+}
+
+/* 1280 */
+@media screen and (min-width: 1280px) {
+  .textBackHome {
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .headText {
+    font-size: 60px;
+  }
+  .panWrapper {
+    left: 20%;
+  }
+  .center::after {
+    content: "4";
+    right: -200px;
+  }
+  .center::before {
+    content: "4";
+    left: -200px;
+  }
+  .center,
+  .center::after,
+  .center::before {
+    font-size: 260px;
+    font-family: "Satisfy", cursive;
+    position: absolute;
+    top: 15%;
+    color: #232732;
+  }
+}

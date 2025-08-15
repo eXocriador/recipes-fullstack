@@ -1,0 +1,29 @@
+.aboutInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.aboutTitle {
+  font-weight: 600;
+  font-size: 32px;
+}
+.aboutText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: justify;
+  hyphens: auto;
+}
+/* text-align: justify;
+  hyphens: auto; вирівнювання тексту по ширині, не зовсім по макету, ці властивості можна прибрати */
+
+/* 768px styles repeat 320px */
+
+/* 1440px styles */
+@media screen and (min-width: 1440px) {
+  .aboutInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,51 @@
+summary: Refresh the access token
+operationId: refreshToken
+tags:
+  - Auth
+parameters:
+  - in: cookie
+    name: refreshToken
+    description: The refresh token, which is passed through cookies, used to generate a new access token
+    required: true
+    schema:
+      type: string
+responses:
+  200:
+    description: New access token returned
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/refreshResponseSchema.yaml'
+        example:
+          status: 200
+          message: Successfully refreshed a session!
+          data:
+            accessToken: kRvdeii1acPo2gCp06mMjNyDGyrw6pkd+OlOur8r
+            user:
+              _id: '68611f3e59f0398beac4e6ca'
+              name: 'va6'
+              email: 'van7.van7@gmail.com'
+
+  400:
+    description: Bad request, e.g. missing or malformed refresh token cookie
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
+        example:
+          status: 400
+          message: 'Invalid refresh token'
+          data: 'Refresh token cookie is missing or malformed'
+
+  401:
+    description: Unauthorized, e.g. invalid or expired refresh token
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
+        example:
+          status: 401
+          message: 'Something went wrong'
+          data: 'Refresh token is invalid or expired'
+  500:
+    $ref: ../../../components/responses/500.yaml

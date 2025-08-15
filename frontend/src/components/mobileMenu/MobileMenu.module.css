@@ -1,0 +1,77 @@
+.container {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 999;
+  animation: slideDown 0.3s ease forwards;
+  background-color: var(--darck-brown);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 16px 0 40px 0;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 32px;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.link {
+  position: relative;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  transition: color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  border-radius: 50px;
+  background-color: var(--white);
+  pointer-events: none;
+}
+
+.link:not(.active)::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  width: 0;
+  border-radius: 50px;
+  background-color: var(--white);
+  transition: width 0.3s ease;
+  pointer-events: none;
+}
+
+.link:not(.active):hover {
+  color: var(--light-gray);
+}
+
+.link:not(.active):hover::after {
+  width: 100%;
+}
