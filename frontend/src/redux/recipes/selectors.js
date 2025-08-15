@@ -46,7 +46,7 @@ export const selectOwnRecipesObject = (state) => state.recipes.items.ownItems;
 
 export const selectAllRecipesObject = (state) => state.recipes.items.allItems;
 
-// Селекторы для filteredItems
+// Selectors for filteredItems
 export const selectFilteredRecipes = (state) =>
   state.recipes.items.filteredItems.items;
 export const selectFilteredRecipesPage = (state) =>

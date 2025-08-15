@@ -1,10 +1,10 @@
 // src/middlewares/errorHandler.js
 
-// Імпортуємо клас HttpError для обробки помилок HTTP з відповідними статус-кодами
+// Import HttpError class for handling HTTP errors with appropriate status codes
 import { HttpError } from 'http-errors';
 
 export const errorHandler = (err, req, res, next) => {
-  // Перевірка, чи отримали ми помилку від createHttpError
+  // Check if we received an error from createHttpError
   if (err instanceof HttpError) {
     res.status(err.status).json({
       status: err.status,

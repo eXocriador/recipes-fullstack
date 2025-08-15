@@ -9,7 +9,7 @@ import {
   fetchFavouriteRecipes,
   deleteFavouriteRecipe,
   fetchOwnRecipes,
-  addFavouriteRecipe,
+  addFavouriteRecipe
 } from "./operations";
 
 const slice = createSlice({
@@ -21,20 +21,20 @@ const slice = createSlice({
         items: [],
         hasNextPage: false,
         hasPreviousPage: false,
-        totalItems: 0,
+        totalItems: 0
       },
       allItems: {
         page: 1,
         items: [],
         hasNextPage: false,
-        hasPreviousPage: false,
+        hasPreviousPage: false
       },
       favoriteItems: {
         page: 1,
         items: [],
         hasNextPage: false,
         hasPreviousPage: false,
-        totalItems: 0,
+        totalItems: 0
       },
       filteredItems: {
         page: 1,
@@ -45,15 +45,15 @@ const slice = createSlice({
         lastFilters: {
           category: "",
           ingredient: "",
-          title: "",
-        },
-      },
+          title: ""
+        }
+      }
     },
     currentRecipe: null,
     loading: false,
     error: null,
     currentRecipeLoading: false,
-    favoriteLoading: false,
+    favoriteLoading: false
   },
   extraReducers: (builder) => {
     builder
@@ -63,7 +63,7 @@ const slice = createSlice({
       })
       .addCase(fetchByPages.fulfilled, (state, action) => {
         state.loading = false;
-        // Обновляем allItems
+        // Update allItems
         const newItems = action.payload.data.data;
         const page = action.payload.data.page;
         const hasNextPage = action.payload.data.hasNextPage;
@@ -76,7 +76,7 @@ const slice = createSlice({
         );
         state.items.allItems.items = [
           ...state.items.allItems.items,
-          ...uniqueNewItems,
+          ...uniqueNewItems
         ];
         state.items.allItems.page = page;
         state.items.allItems.hasNextPage = hasNextPage;
@@ -123,7 +123,7 @@ const slice = createSlice({
         state.loading = false;
         state.error = false;
 
-        // Проверка на наличие данных
+        // Check for data availability
         const payload =
           action.payload && action.payload.data ? action.payload.data : {};
         const newItems = Array.isArray(payload.data) ? payload.data : [];
@@ -143,7 +143,7 @@ const slice = createSlice({
           );
           state.items.ownItems.items = [
             ...state.items.ownItems.items,
-            ...filteredNewItems,
+            ...filteredNewItems
           ];
         }
 
@@ -182,7 +182,7 @@ const slice = createSlice({
           );
           state.items.favoriteItems.items = [
             ...state.items.favoriteItems.items,
-            ...filteredNewItems,
+            ...filteredNewItems
           ];
         }
 
@@ -226,19 +226,19 @@ const slice = createSlice({
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false,
+          hasPreviousPage: false
         };
         state.items.allItems = {
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false,
+          hasPreviousPage: false
         };
         state.items.favoriteItems = {
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false,
+          hasPreviousPage: false
         };
         state.items.filteredItems = {
           page: 1,
@@ -249,8 +249,8 @@ const slice = createSlice({
           lastFilters: {
             category: "",
             ingredient: "",
-            title: "",
-          },
+            title: ""
+          }
         };
       })
       .addCase(fetchByFilters.pending, (state) => {
@@ -272,7 +272,7 @@ const slice = createSlice({
         const currentFilters = {
           category: action.meta.arg.category || "",
           ingredient: action.meta.arg.ingredient || "",
-          title: action.meta.arg.title || "",
+          title: action.meta.arg.title || ""
         };
 
         const filtersChanged =
@@ -294,7 +294,7 @@ const slice = createSlice({
           );
           state.items.filteredItems.items = [
             ...state.items.filteredItems.items,
-            ...uniqueNewItems,
+            ...uniqueNewItems
           ];
         }
 
@@ -321,7 +321,7 @@ const slice = createSlice({
     //   state.loading = false;
     //   state.error = true;
     // })
-  },
+  }
 });
 
 export default slice.reducer;

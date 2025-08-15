@@ -10,7 +10,7 @@ import { selectFavoriteRecipes } from "../../redux/recipes/selectors";
 import {
   deleteFavouriteRecipe,
   addFavouriteRecipe,
-  fetchFavouriteRecipes,
+  fetchFavouriteRecipes
 } from "../../redux/recipes/operations";
 
 export default function GeneralInfoRecipe({ category, time, calories, id }) {
@@ -57,7 +57,7 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
       }
     } catch (err) {
       toast.error(err?.message || "Something went wrong");
-      setOptimisticFav(null); // сбросить optimisticFav при ошибке
+      setOptimisticFav(null); // reset optimisticFav on error
     } finally {
       setLoading(false);
     }

@@ -7,10 +7,10 @@ import { toast } from "react-hot-toast";
 import Svg from "../Svg/svg.jsx";
 
 import { login, getUserInfo } from "../../redux/auth/operations";
-import { selectIsLoading } from "../../redux/auth/selectors"; // ← додай свій селектор
+import { selectIsLoading } from "../../redux/auth/selectors"; // ← add your selector
 
 import css from "./LoginForm.module.css";
-import Loader from "../Loader/Loader.jsx"; // ← компонент лоадера
+import Loader from "../Loader/Loader.jsx"; // ← loader component
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -18,7 +18,7 @@ const LoginSchema = Yup.object().shape({
     .min(3, "Must be min 3 chars")
     .required("This field is required")
     .max(50, "Must be less than 50 chars"),
-  password: Yup.string().required("This field is required"),
+  password: Yup.string().required("This field is required")
 });
 
 const initialValues = { email: "", password: "" };

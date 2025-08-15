@@ -1,81 +1,83 @@
 # 🍳 Recipes App - Fullstack Monorepo
 
-Повноцінна додаток для управління рецептами з сучасною архітектурою.
+Full-featured recipe management application with modern architecture.
 
-## 🏗️ Структура проєкту
+## 🏗️ Project Structure
 
 ```
 recipes-app/
 ├── backend/          # Node.js + Express + MongoDB API
 ├── frontend/         # React 19 + Redux + Vite
-└── package.json      # Кореневий package.json для монорепо
+└── package.json      # Root package.json for monorepo
 ```
 
-## 🚀 Швидкий старт
+## 🚀 Quick Start
 
-### 1. Встановлення залежностей
+### 1. Install Dependencies
 
 ```bash
-# Встановити всі залежності (корінь + backend + frontend)
+# Install all dependencies (root + backend + frontend)
 npm run install:all
 
-# Або окремо:
-npm install                    # Кореневі залежності
-cd backend && npm install     # Backend залежності
-cd frontend && npm install    # Frontend залежності
+# Or separately:
+npm install                    # Root dependencies
+cd backend && npm install     # Backend dependencies
+cd frontend && npm install    # Frontend dependencies
 ```
 
-### 2. Запуск в режимі розробки
+### 2. Development Mode
 
 ```bash
-# Запустити обидва сервери одночасно
+# Start both servers simultaneously
 npm run dev
 
-# Або окремо:
-npm run dev:backend-only      # Тільки backend
-npm run dev:frontend-only     # Тільки frontend
+# Or separately:
+npm run dev:backend-only      # Backend only
+npm run dev:frontend-only     # Frontend only
 ```
 
-### 3. Запуск в продакшн режимі
+### 3. Production Mode
 
 ```bash
-# Збудувати обидва проєкти
+# Build both projects
 npm run build
 
-# Запустити backend
+# Start backend
 npm start
 
-# Запустити frontend (preview)
+# Start frontend (preview)
 npm run start:frontend
 ```
 
-## 📋 Доступні скрипти
+## 📋 Available Scripts
 
-| Скрипт | Опис |
-|--------|------|
-| `npm run dev` | Запустити обидва сервери одночасно |
-| `npm run dev:backend` | Запустити тільки backend |
-| `npm run dev:frontend` | Запустити тільки frontend |
-| `npm run build` | Збудувати обидва проєкти |
-| `npm run lint` | Запустити linting для обох проєктів |
-| `npm run install:all` | Встановити всі залежності |
+| Script                 | Description                       |
+| ---------------------- | --------------------------------- |
+| `npm run dev`          | Start both servers simultaneously |
+| `npm run dev:backend`  | Start backend only                |
+| `npm run dev:frontend` | Start frontend only               |
+| `npm run build`        | Build both projects               |
+| `npm run lint`         | Run linting for both projects     |
+| `npm run install:all`  | Install all dependencies          |
 
-## 🌐 Порти
+## 🌐 Ports
 
 - **Backend**: http://localhost:3000
 - **Frontend**: http://localhost:5173
 - **API Docs**: http://localhost:3000/api-docs
 
-## 🔧 Технології
+## 🔧 Technologies
 
 ### Backend
+
 - Node.js + Express.js
 - MongoDB + Mongoose
-- JWT аутентифікація
-- Cloudinary для зображень
-- Swagger документація
+- JWT authentication
+- Cloudinary for images
+- Swagger documentation
 
 ### Frontend
+
 - React 19
 - Redux Toolkit
 - Vite
@@ -84,41 +86,40 @@ npm run start:frontend
 
 ## 📁 Workspaces
 
-Проєкт використовує npm workspaces для управління монорепо:
+Project uses npm workspaces for monorepo management:
 
 ```json
 {
-  "workspaces": [
-    "frontend",
-    "backend"
-  ]
+  "workspaces": ["frontend", "backend"]
 }
 ```
 
-## 🚨 Важливо
+## 🚨 Important
 
-1. **Environment Variables**: Створіть `.env` файл в backend директорії
-2. **MongoDB**: Переконайтеся, що MongoDB запущена
-3. **Порти**: Перевірте, що порти 3000 та 5173 вільні
+1. **Environment Variables**: Create `.env` file in backend directory
+2. **MongoDB**: Make sure MongoDB is running
+3. **Ports**: Check that ports 3000 and 5173 are free
 
-## 🐛 Розв'язання проблем
+## 🐛 Troubleshooting
 
-### Якщо порт зайнятий:
+### If port is occupied:
+
 ```bash
-# Знайти процес на порту
+# Find process on port
 lsof -i :3000
 lsof -i :5173
 
-# Зупинити процес
+# Stop process
 kill -9 <PID>
 ```
 
-### Якщо модулі не встановлюються:
+### If modules don't install:
+
 ```bash
-# Очистити кеш
+# Clear cache
 npm cache clean --force
 
-# Перевстановити
+# Reinstall
 rm -rf node_modules package-lock.json
 npm install
 ```

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchFavouriteRecipes,
   fetchOwnRecipes,
-  fetchByFilters,
+  fetchByFilters
 } from "../../redux/recipes/operations";
 import { useLocation, useParams } from "react-router-dom";
 import {
@@ -24,7 +24,7 @@ import {
   selectFilteredRecipes,
   selectFilteredRecipesHasNextPage,
   selectFilteredRecipesPage,
-  selectFilteredRecipesTotal,
+  selectFilteredRecipesTotal
 } from "../../redux/recipes/selectors";
 import Loader from "../Loader/Loader";
 import { selectUserData } from "../../redux/auth/selectors";
@@ -36,7 +36,7 @@ export default function ListWrapper({
   setFilter,
   isSearched,
   isModalOpen,
-  setSearchQuery,
+  setSearchQuery
 }) {
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState(false);
 
@@ -110,7 +110,7 @@ export default function ListWrapper({
     fetch();
   }, [dispatch, filter, page, isMainPage, recipeType]);
 
-  // Показываем тост, если после клика на LoadMoreBtn больше нет страниц
+  // Show toast if there are no more pages after clicking LoadMoreBtn
   useEffect(() => {
     if (
       !hasNextPage &&

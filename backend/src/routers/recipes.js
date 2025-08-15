@@ -27,7 +27,7 @@ function parseIngredients(req, res, next) {
     try {
       req.body.ingredients = JSON.parse(req.body.ingredients);
     } catch {
-      // Якщо не валідний JSON — Joi відловить помилку
+      // If JSON is not valid — Joi will catch the error
     }
   }
   next();

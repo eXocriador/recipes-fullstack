@@ -14,9 +14,9 @@ export function getEnvVar(name, defaultValue) {
   throw new Error(`Missing: process.env['${name}'].`);
 }
 
-// Використати її ми можемо, наприклад,
-// в такому вигляді: env('PORT', '3000');
-// Якщо змінної оточення з такою назвою
-// не було вказано і не було передано дефолтного значення,
-// то виклик цієї функції викине помилку
-// з повідомленням Missing: process.env['PORT'].
+// We can use it, for example,
+// in this form: env('PORT', '3000');
+// If an environment variable with such a name
+// was not specified and no default value was passed,
+// then calling this function will throw an error
+// with the message Missing: process.env['PORT'].
