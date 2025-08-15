@@ -1,14 +1,14 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-const registerSchema = Joi.object({
-  name: Joi.string().max(16).required(),
-  email: Joi.string().email().max(128).required(),
-  password: Joi.string().min(8).max(128).required(),
+const registerSchema = z.object({
+  name: z.string().max(16),
+  email: z.string().email().max(128),
+  password: z.string().min(8).max(128),
 });
 
-const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().min(8).required(),
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
 });
 
 export { registerSchema, loginSchema };

@@ -5,6 +5,7 @@ import dsv from "@rollup/plugin-dsv";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [
     react(),
     svgr({
@@ -12,22 +13,23 @@ export default defineConfig({
         exportType: "default",
         ref: true,
         svgo: false,
-        titleProp: true,
+        titleProp: true
       },
-      include: "**/*.svg",
+      include: "**/*.svg"
     }),
-    dsv(),
+    dsv()
   ],
   build: {
-    sourcemap: true,
+    sourcemap: true
   },
   server: {
     port: 5173,
     open: true,
+    historyApiFallback: true
   },
   css: {
     modules: {
-      localsConvention: "camelCaseOnly",
-    },
-  },
+      localsConvention: "camelCaseOnly"
+    }
+  }
 });

@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const authInstance = axios.create({
-  baseURL: "https://fullstack-recipes-backend-ssa1.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL
 });
 authInstance.defaults.withCredentials = true;
 

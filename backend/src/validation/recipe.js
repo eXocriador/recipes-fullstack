@@ -1,19 +1,22 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-const ingredientSchema = Joi.object({
-  id: Joi.string().length(24).hex().required(), // Expecting Mongo ObjectId
-  measure: Joi.string().max(64).required(),
+const ingredientSchema = z.object({
+  id: z
+    .string()
+    .length(24)
+    .regex(/^[0-9a-fA-F]{24}$/), // Expecting Mongo ObjectId
+  measure: z.string().max(64),
 });
 
-export const recipeSchema = Joi.object({
-  title: Joi.string().max(64).required(),
-  description: Joi.string().max(200).required(),
-  time: Joi.string().max(64).required(),
-  calories: Joi.number().integer().min(1).max(10000).optional().allow(null),
-  category: Joi.string().required(),
-  area: Joi.string().max(64).optional().allow('', null),
-  ingredients: Joi.array().items(ingredientSchema).min(2).max(16).required(),
-  instructions: Joi.string().max(1200).required(),
-  thumb: Joi.string().uri().optional().allow(null, ''),
-  thumbPublicId: Joi.string().optional().allow(null, ''),
+export const recipeSchema = z.object({
+  title: z.string().max(64),
+  description: z.string().max(200),
+  time: z.string().max(64),
+  calories: z.number().int().min(1).max(10000).nullable().optional(),
+  category: z.string(),
+  area: z.string().max(64).nullable().optional(),
+  ingredients: z.array(ingredientSchema).min(2).max(16),
+  instructions: z.string().max(1200),
+  thumb: z.string().url().nullable().optional(),
+  thumbPublicId: z.string().nullable().optional(),
 });

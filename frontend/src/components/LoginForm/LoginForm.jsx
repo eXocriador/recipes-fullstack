@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+import { z } from "zod";
 import { toast } from "react-hot-toast";
 import Svg from "../Svg/svg.jsx";
 
@@ -12,13 +12,13 @@ import { selectIsLoading } from "../../redux/auth/selectors"; // ← add your se
 import css from "./LoginForm.module.css";
 import Loader from "../Loader/Loader.jsx"; // ← loader component
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
+const LoginSchema = z.object({
+  email: z
+    .string()
     .email("Invalid email format")
     .min(3, "Must be min 3 chars")
-    .required("This field is required")
     .max(50, "Must be less than 50 chars"),
-  password: Yup.string().required("This field is required")
+  password: z.string()
 });
 
 const initialValues = { email: "", password: "" };
@@ -30,6 +30,14 @@ export default function LoginForm() {
   const isLoading = useSelector(selectIsLoading);
 
   const handleSubmit = (values, actions) => {
+    // Validate with Zod
+    const validationResult = LoginSchema.safeParse(values);
+    if (!validationResult.success) {
+      const errors = validationResult.error.flatten().fieldErrors;
+      actions.setErrors(errors);
+      return;
+    }
+
     dispatch(login(values))
       .unwrap()
       .then(() => dispatch(getUserInfo()))
@@ -53,7 +61,18 @@ export default function LoginForm() {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          validationSchema={LoginSchema}
+          validate={(values) => {
+            const result = LoginSchema.safeParse(values);
+            if (!result.success) {
+              const errors = {};
+              result.error.errors.forEach((error) => {
+                const field = error.path[0];
+                errors[field] = error.message;
+              });
+              return errors;
+            }
+            return {};
+          }}
         >
           {({ errors }) => (
             <Form className={css.loginForm}>
@@ -103,14 +122,12 @@ export default function LoginForm() {
                   />
                 </div>
               </div>
-              <div className={css.buttonForm}>
-                <button className={css.loginBtn} type="submit">
-                  Log In
-                </button>
-              </div>
-              <p className={css.regText}>
-                Don’t have an account?&nbsp;
-                <Link className={css.regLink} to="/auth/register">
+              <button type="submit" className={css.loginBtn}>
+                Login
+              </button>
+              <p className={css.loginTextBottom}>
+                Don't have an account?{" "}
+                <Link to="/register" className={css.loginLink}>
                   Register
                 </Link>
               </p>
