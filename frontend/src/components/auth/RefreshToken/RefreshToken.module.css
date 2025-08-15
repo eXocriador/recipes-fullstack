@@ -1,6 +1,6 @@
 .button {
-    background-color: var(--white);
-    height: auto;
-    width: auto;
-    border-radius: 12px;
+  background-color: var(--white);
+  height: auto;
+  width: auto;
+  border-radius: 12px;
 }

@@ -1,27 +1,27 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { z } from "zod";
-import { toast } from "react-hot-toast";
-import Svg from "../../common/Svg/svg.jsx";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { toast } from 'react-hot-toast';
+import Svg from '../../common/Svg/svg.jsx';
 
-import { login, getUserInfo } from "../../../redux/auth/operations";
-import { selectIsLoading } from "../../../redux/auth/selectors"; // ← add your selector
+import { login, getUserInfo } from '../../../redux/auth/operations';
+import { selectIsLoading } from '../../../redux/auth/selectors'; // ← add your selector
 
-import css from "./LoginForm.module.css";
-import Loader from "../../common/Loader/Loader.jsx"; // ← loader component
+import css from './LoginForm.module.css';
+import Loader from '../../common/Loader/Loader.jsx'; // ← loader component
 
 const LoginSchema = z.object({
   email: z
     .string()
-    .email("Invalid email format")
-    .min(3, "Must be min 3 chars")
-    .max(50, "Must be less than 50 chars"),
-  password: z.string()
+    .email('Invalid email format')
+    .min(3, 'Must be min 3 chars')
+    .max(50, 'Must be less than 50 chars'),
+  password: z.string(),
 });
 
-const initialValues = { email: "", password: "" };
+const initialValues = { email: '', password: '' };
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,11 +42,11 @@ export default function LoginForm() {
       .unwrap()
       .then(() => dispatch(getUserInfo()))
       .then(() => {
-        toast.success("Login successful! 👏");
-        navigate("/");
+        toast.success('Login successful! 👏');
+        navigate('/');
       })
       .catch(() => {
-        toast.error("Failed to log in. Please check your email or password.");
+        toast.error('Failed to log in. Please check your email or password.');
       });
     actions.resetForm();
   };
@@ -61,11 +61,11 @@ export default function LoginForm() {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          validate={(values) => {
+          validate={values => {
             const result = LoginSchema.safeParse(values);
             if (!result.success) {
               const errors = {};
-              result.error.errors.forEach((error) => {
+              result.error.errors.forEach(error => {
                 const field = error.path[0];
                 errors[field] = error.message;
               });
@@ -84,7 +84,7 @@ export default function LoginForm() {
                   </label>
                   <Field
                     className={`${css.loginInput} ${
-                      errors.email ? css.err : ""
+                      errors.email ? css.err : ''
                     }`}
                     type="email"
                     name="email"
@@ -104,16 +104,16 @@ export default function LoginForm() {
                   </label>
                   <Field
                     className={`${css.loginInput} ${
-                      errors.password ? css.err : ""
+                      errors.password ? css.err : ''
                     }`}
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="•••••••••••"
                   />
                   <Svg
-                    name={showPassword ? "eye" : "close-eye"}
+                    name={showPassword ? 'eye' : 'close-eye'}
                     styles={css.iconEye}
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() => setShowPassword(prev => !prev)}
                   />
                   <ErrorMessage
                     className={css.errorPass}
@@ -126,7 +126,7 @@ export default function LoginForm() {
                 Login
               </button>
               <p className={css.loginTextBottom}>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{' '}
                 <Link to="/register" className={css.loginLink}>
                   Register
                 </Link>

@@ -1,9 +1,9 @@
-@import "modern-normalize/modern-normalize.css";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=DM+Sans&display=swap");
+@import 'modern-normalize/modern-normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=DM+Sans&display=swap');
 
 :root {
-  --font-family: "Montserrat", sans-serif;
-  --second-family: "DM Sans", sans-serif;
+  --font-family: 'Montserrat', sans-serif;
+  --second-family: 'DM Sans', sans-serif;
   --black: #000;
   --gray: #595d62;
   --white: #fff;
@@ -33,10 +33,10 @@
   --darck-gray: #323232;
   --light-beige-3: #e1d7c6;
   --red: #c80000;
-  --background: #fbfcf8
+  --background: #fbfcf8;
 }
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

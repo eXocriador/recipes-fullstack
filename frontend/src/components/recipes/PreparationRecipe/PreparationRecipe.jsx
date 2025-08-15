@@ -1,8 +1,8 @@
-import css from "./PreparationRecipe.module.css";
+import css from './PreparationRecipe.module.css';
 export default function PreparationRecipe({ instructions }) {
   if (!instructions) return null;
 
-  const steps = instructions.split("\n").filter((step) => step.trim() !== "");
+  const steps = instructions.split('\n').filter(step => step.trim() !== '');
   return (
     <div className={css.preparationBox}>
       <h3 className={css.preparationTitle}>Preparation Steps:</h3>

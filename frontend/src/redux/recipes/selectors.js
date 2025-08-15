@@ -1,61 +1,59 @@
-export const selectRecipes = (state) => state.recipes.items;
+export const selectRecipes = state => state.recipes.items;
 
-export const selectRecipesLoading = (state) => state.recipes.loading;
+export const selectRecipesLoading = state => state.recipes.loading;
 
-export const selectCurrentRecipeLoading = (state) =>
+export const selectCurrentRecipeLoading = state =>
   state.recipes.currentRecipeLoading;
-export const selectFavoriteLoading = (state) => state.recipes.favoriteLoading;
+export const selectFavoriteLoading = state => state.recipes.favoriteLoading;
 
-export const selectRecipesError = (state) => state.recipes.error;
+export const selectRecipesError = state => state.recipes.error;
 
-export const selectOwnRecipes = (state) => state.recipes.items.ownItems.items;
+export const selectOwnRecipes = state => state.recipes.items.ownItems.items;
 
-export const selectAllRecipes = (state) => state.recipes.items.allItems.items;
+export const selectAllRecipes = state => state.recipes.items.allItems.items;
 
-export const selectFavoriteRecipes = (state) =>
+export const selectFavoriteRecipes = state =>
   state.recipes.items.favoriteItems.items;
 
-export const selectOwnRecipesPage = (state) =>
-  state.recipes.items.ownItems.page;
-export const selectAllRecipesPage = (state) =>
-  state.recipes.items.allItems.page;
-export const selectFavoriteRecipesPage = (state) =>
+export const selectOwnRecipesPage = state => state.recipes.items.ownItems.page;
+export const selectAllRecipesPage = state => state.recipes.items.allItems.page;
+export const selectFavoriteRecipesPage = state =>
   state.recipes.items.favoriteItems.page;
 
-export const selectOwnRecipesHasNextPage = (state) =>
+export const selectOwnRecipesHasNextPage = state =>
   state.recipes.items.ownItems.hasNextPage;
-export const selectOwnRecipesHasPreviousPage = (state) =>
+export const selectOwnRecipesHasPreviousPage = state =>
   state.recipes.items.ownItems.hasPreviousPage;
-export const selectAllRecipesHasNextPage = (state) =>
+export const selectAllRecipesHasNextPage = state =>
   state.recipes.items.allItems.hasNextPage;
-export const selectAllRecipesHasPreviousPage = (state) =>
+export const selectAllRecipesHasPreviousPage = state =>
   state.recipes.items.allItems.hasPreviousPage;
-export const selectFavoriteRecipesHasNextPage = (state) =>
+export const selectFavoriteRecipesHasNextPage = state =>
   state.recipes.items.favoriteItems.hasNextPage;
-export const selectFavoriteRecipesHasPreviousPage = (state) =>
+export const selectFavoriteRecipesHasPreviousPage = state =>
   state.recipes.items.favoriteItems.hasPreviousPage;
 
-export const selectOwnRecipesTotal = (state) =>
+export const selectOwnRecipesTotal = state =>
   state.recipes.items.ownItems.totalItems;
-export const selectFavoriteRecipesTotal = (state) =>
+export const selectFavoriteRecipesTotal = state =>
   state.recipes.items.favoriteItems.totalItems;
 
-export const selectCurrentRecipe = (state) => state.recipes.currentRecipe;
+export const selectCurrentRecipe = state => state.recipes.currentRecipe;
 
-export const selectOwnRecipesObject = (state) => state.recipes.items.ownItems;
+export const selectOwnRecipesObject = state => state.recipes.items.ownItems;
 
-export const selectAllRecipesObject = (state) => state.recipes.items.allItems;
+export const selectAllRecipesObject = state => state.recipes.items.allItems;
 
 // Selectors for filteredItems
-export const selectFilteredRecipes = (state) =>
+export const selectFilteredRecipes = state =>
   state.recipes.items.filteredItems.items;
-export const selectFilteredRecipesPage = (state) =>
+export const selectFilteredRecipesPage = state =>
   state.recipes.items.filteredItems.page;
-export const selectFilteredRecipesHasNextPage = (state) =>
+export const selectFilteredRecipesHasNextPage = state =>
   state.recipes.items.filteredItems.hasNextPage;
-export const selectFilteredRecipesHasPreviousPage = (state) =>
+export const selectFilteredRecipesHasPreviousPage = state =>
   state.recipes.items.filteredItems.hasPreviousPage;
-export const selectFilteredRecipesTotal = (state) =>
+export const selectFilteredRecipesTotal = state =>
   state.recipes.items.filteredItems.totalItems;
-export const selectLastFilters = (state) =>
+export const selectLastFilters = state =>
   state.recipes.items.filteredItems.lastFilters;

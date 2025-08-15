@@ -1,15 +1,15 @@
-import { NavLink, useParams } from "react-router-dom";
-import { toast } from "react-hot-toast";
-import Svg from "../../common/Svg/svg";
-import style from "./RecipeCard.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import Svg from '../../common/Svg/svg';
+import style from './RecipeCard.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   deleteFavouriteRecipe,
-  addFavouriteRecipe
-} from "../../../redux/recipes/operations";
-import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-import { useEffect, useState } from "react";
+  addFavouriteRecipe,
+} from '../../../redux/recipes/operations';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors';
+import { useEffect, useState } from 'react';
 
 export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
   const dispatch = useDispatch();
@@ -17,26 +17,26 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
   const { recipeType } = useParams();
   const [isFavouriteState, setIsFavouriteState] = useState();
 
-  const isFavourite = favourites?.some((fav) => fav === recipeCard._id);
+  const isFavourite = favourites?.some(fav => fav === recipeCard._id);
 
   useEffect(() => {
     isFavourite && setIsFavouriteState(true);
   }, [isFavourite]);
 
   const handleDeleteFavourite = async () => {
-    toast.error("Deleting");
+    toast.error('Deleting');
     try {
       if (recipeCard._id) {
         await dispatch(deleteFavouriteRecipe(recipeCard._id))
           .unwrap()
-          .catch((err) => {})
+          .catch(_err => {})
           .then(() => {
             setIsFavouriteState(false);
           });
-        toast.success("Removed from favourites");
+        toast.success('Removed from favourites');
       }
-    } catch (error) {
-      toast.error("Something went wrong");
+    } catch (_error) {
+      toast.error('Something went wrong');
     }
   };
 
@@ -45,7 +45,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
       isModalOpen(true);
       return;
     }
-    toast.success("Adding");
+    toast.success('Adding');
     try {
       if (recipeCard._id) {
         await dispatch(addFavouriteRecipe(recipeCard._id))
@@ -53,10 +53,10 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
           .then(() => {
             setIsFavouriteState(true);
           });
-        toast.success("Added to favourites");
+        toast.success('Added to favourites');
       }
-    } catch (error) {
-      toast.error("Something went wrong");
+    } catch (_error) {
+      toast.error('Something went wrong');
     }
   };
   return (
@@ -86,7 +86,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
         >
           Learn more
         </NavLink>
-        {recipeType === "own" ? null : isFavouriteState ? (
+        {recipeType === 'own' ? null : isFavouriteState ? (
           <div
             onClick={handleDeleteFavourite}
             className={style.svg1WrapperActive}

@@ -3,7 +3,7 @@
 // Import HttpError class for handling HTTP errors with appropriate status codes
 import { HttpError } from 'http-errors';
 
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, _next) => {
   // Check if we received an error from createHttpError
   if (err instanceof HttpError) {
     res.status(err.status).json({

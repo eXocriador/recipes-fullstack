@@ -10,6 +10,6 @@ export const swaggerDocs = () => {
     return [...swaggerUI.serve, swaggerUI.setup(swaggerDoc)];
   } catch {
     return (req, res, next) =>
-      next(createHttpError(500, "Can't load swagger docs"));
+      next(createHttpError(500, 'Can\'t load swagger docs'));
   }
 };

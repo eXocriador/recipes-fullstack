@@ -1,15 +1,15 @@
-import RecipesList from "../../recipes/RecipesList/RecipesList";
-import LoadMoreBtn from "../../ui/LoadMoreBtn/LoadMoreBtn";
-import Filters from "../../ui/Filters/Filters";
-import css from "./ListWrapper.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import RecipesList from '../../recipes/RecipesList/RecipesList';
+import LoadMoreBtn from '../../ui/LoadMoreBtn/LoadMoreBtn';
+import Filters from '../../ui/Filters/Filters';
+import css from './ListWrapper.module.css';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchFavouriteRecipes,
   fetchOwnRecipes,
-  fetchByFilters
-} from "../../../redux/recipes/operations";
-import { useLocation, useParams } from "react-router-dom";
+  fetchByFilters,
+} from '../../../redux/recipes/operations';
+import { useLocation, useParams } from 'react-router-dom';
 import {
   selectRecipesError,
   selectRecipesLoading,
@@ -24,19 +24,19 @@ import {
   selectFilteredRecipes,
   selectFilteredRecipesHasNextPage,
   selectFilteredRecipesPage,
-  selectFilteredRecipesTotal
-} from "../../../redux/recipes/selectors";
-import Loader from "../Loader/Loader";
-import { selectUserData } from "../../../redux/auth/selectors";
-import { getUserInfo } from "../../../redux/auth/operations";
-import { toast } from "react-hot-toast";
+  selectFilteredRecipesTotal,
+} from '../../../redux/recipes/selectors';
+import Loader from '../Loader/Loader';
+import { selectUserData } from '../../../redux/auth/selectors';
+import { getUserInfo } from '../../../redux/auth/operations';
+import { toast } from 'react-hot-toast';
 
 export default function ListWrapper({
   filter,
   setFilter,
   isSearched,
   isModalOpen,
-  setSearchQuery
+  setSearchQuery,
 }) {
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export default function ListWrapper({
   const favourites = data.favorites;
   const location = useLocation();
   const { recipeType } = useParams();
-  const isMainPage = location.pathname === "/";
+  const isMainPage = location.pathname === '/';
 
   const dispatch = useDispatch();
 
@@ -55,33 +55,33 @@ export default function ListWrapper({
   const items = useSelector(
     isMainPage
       ? selectFilteredRecipes
-      : recipeType === "own"
-      ? selectOwnRecipes
-      : selectFavoriteRecipes
+      : recipeType === 'own'
+        ? selectOwnRecipes
+        : selectFavoriteRecipes,
   );
 
   const total = useSelector(
     isMainPage
       ? selectFilteredRecipesTotal
-      : recipeType === "own"
-      ? selectOwnRecipesTotal
-      : selectFavoriteRecipesTotal
+      : recipeType === 'own'
+        ? selectOwnRecipesTotal
+        : selectFavoriteRecipesTotal,
   );
 
   const page = useSelector(
     isMainPage
       ? selectFilteredRecipesPage
-      : recipeType === "own"
-      ? selectOwnRecipesPage
-      : selectFavoriteRecipesPage
+      : recipeType === 'own'
+        ? selectOwnRecipesPage
+        : selectFavoriteRecipesPage,
   );
 
   const hasNextPage = useSelector(
     isMainPage
       ? selectFilteredRecipesHasNextPage
-      : recipeType === "own"
-      ? selectOwnRecipesHasNextPage
-      : selectFavoriteRecipesHasNextPage
+      : recipeType === 'own'
+        ? selectOwnRecipesHasNextPage
+        : selectFavoriteRecipesHasNextPage,
   );
 
   const isLoading = useSelector(selectRecipesLoading);
@@ -100,9 +100,9 @@ export default function ListWrapper({
       if (isMainPage) {
         dispatch(fetchByFilters(filter));
       } else {
-        if (recipeType === "own") {
+        if (recipeType === 'own') {
           await dispatch(fetchOwnRecipes({ page }));
-        } else if (recipeType === "favourites") {
+        } else if (recipeType === 'favourites') {
           await dispatch(fetchFavouriteRecipes({ page }));
         }
       }
@@ -118,7 +118,7 @@ export default function ListWrapper({
       items.length > 0 &&
       (filter.page > 1 || page > 1)
     ) {
-      toast("No more recipes");
+      toast('No more recipes');
     }
   }, [hasNextPage]);
 
@@ -129,9 +129,9 @@ export default function ListWrapper({
       const nextPage = page + 1;
       setIsLoadMoreLoading(true);
 
-      if (recipeType === "own") {
+      if (recipeType === 'own') {
         await dispatch(fetchOwnRecipes({ page: nextPage }));
-      } else if (recipeType === "favourites") {
+      } else if (recipeType === 'favourites') {
         await dispatch(fetchFavouriteRecipes({ page: nextPage }));
       }
 
@@ -152,7 +152,7 @@ export default function ListWrapper({
       />
 
       {isInitialLoad ? (
-        <div style={{ paddingTop: "200px", paddingBottom: "200px" }}>
+        <div style={{ paddingTop: '200px', paddingBottom: '200px' }}>
           <Loader />
         </div>
       ) : items && items.length > 0 ? (
@@ -166,7 +166,7 @@ export default function ListWrapper({
           {hasNextPage && (
             <>
               {isLoadMore && (
-                <div style={{ marginBottom: "40px" }}>
+                <div style={{ marginBottom: '40px' }}>
                   <Loader />
                 </div>
               )}

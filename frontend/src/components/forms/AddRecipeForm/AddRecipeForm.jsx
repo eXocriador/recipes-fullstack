@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
-import css from "./AddRecipeForm.module.css";
-import Svg from "../../common/Svg/svg.jsx";
-import defaultImage from "../../../img/default.jpg";
+import { useNavigate } from 'react-router-dom';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import css from './AddRecipeForm.module.css';
+import Svg from '../../common/Svg/svg.jsx';
+import defaultImage from '../../../img/default.jpg';
 
-import { fetchCategories } from "../../../redux/categories/operations";
-import { selectCategories } from "../../../redux/categories/selectors";
+import { fetchCategories } from '../../../redux/categories/operations';
+import { selectCategories } from '../../../redux/categories/selectors';
 
-import { fetchIngredients } from "../../../redux/ingredients/operations.js";
-import { selectIngredients } from "../../../redux/ingredients/selectors.js";
+import { fetchIngredients } from '../../../redux/ingredients/operations.js';
+import { selectIngredients } from '../../../redux/ingredients/selectors.js';
 
-import { addRecipe } from "../../../redux/recipes/operations.js";
+import { addRecipe } from '../../../redux/recipes/operations.js';
 
 export default function AddRecipeForm() {
   const {
@@ -21,35 +21,35 @@ export default function AddRecipeForm() {
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
-      description: "",
-      time: "",
-      calories: "",
-      category: "",
+      title: '',
+      description: '',
+      time: '',
+      calories: '',
+      category: '',
       ingredients: [],
-      instructions: ""
-    }
+      instructions: '',
+    },
   });
 
   const {
     fields: ingredientFields,
     append: appendIngredient,
     remove: removeIngredient,
-    replace: replaceIngredients
-  } = useFieldArray({ control, name: "ingredients" });
+    replace: replaceIngredients,
+  } = useFieldArray({ control, name: 'ingredients' });
 
-  const [ingredient, setIngredient] = useState("");
-  const [measure, setMeasure] = useState("");
+  const [ingredient, setIngredient] = useState('');
+  const [measure, setMeasure] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [ingredientNameError, setIngredientNameError] = useState("");
-  const [ingredientAmountError, setIngredientAmountError] = useState("");
+  const [ingredientNameError, setIngredientNameError] = useState('');
+  const [ingredientAmountError, setIngredientAmountError] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState();
   const fileInputRef = useRef(null);
-  const [ingredientsError, setIngredientsError] = useState("");
+  const [ingredientsError, setIngredientsError] = useState('');
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -67,24 +67,24 @@ export default function AddRecipeForm() {
   const handleAddIngredient = () => {
     let hasError = false;
     if (!ingredient.trim()) {
-      setIngredientNameError("Required field!");
+      setIngredientNameError('Required field!');
       hasError = true;
     } else {
-      setIngredientNameError("");
+      setIngredientNameError('');
     }
     if (!measure.trim()) {
-      setIngredientAmountError("Required field!");
+      setIngredientAmountError('Required field!');
       hasError = true;
     } else if (measure.length > 64) {
-      setIngredientAmountError("Amount must be 64 characters or less!");
+      setIngredientAmountError('Amount must be 64 characters or less!');
       hasError = true;
     } else {
-      setIngredientAmountError("");
+      setIngredientAmountError('');
     }
     if (hasError) return;
 
     const selectedIngredient = ingredients.find(
-      (item) => item._id === ingredient
+      item => item._id === ingredient
     );
     const ingredientName = selectedIngredient
       ? selectedIngredient.name
@@ -93,27 +93,27 @@ export default function AddRecipeForm() {
     const newIngredient = {
       ingredientId: ingredient,
       measure: measure,
-      name: ingredientName
+      name: ingredientName,
     };
 
     appendIngredient(newIngredient);
-    setIngredient("");
-    setMeasure("");
+    setIngredient('');
+    setMeasure('');
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     if (ingredientFields.length <= 1) {
       setIngredientsError(
-        "Required field! There must be at least two ingredients!"
+        'Required field! There must be at least two ingredients!'
       );
       return;
     } else {
-      setIngredientsError("");
+      setIngredientsError('');
     }
 
     setIsSubmitted(true);
 
-    const selectedCategory = categories.find((cat) => cat.id === data.category);
+    const selectedCategory = categories.find(cat => cat.id === data.category);
     const categoryName = selectedCategory
       ? selectedCategory.name
       : data.category;
@@ -124,11 +124,11 @@ export default function AddRecipeForm() {
       instructions: data.instructions,
       description: data.description,
       time: String(data.time),
-      ingredients: ingredientFields.map((field) => ({
+      ingredients: ingredientFields.map(field => ({
         id: String(field.ingredientId),
-        measure: String(field.measure)
+        measure: String(field.measure),
       })),
-      calories: data.calories ? Number(data.calories) : null
+      calories: data.calories ? Number(data.calories) : null,
     };
 
     if (photo) {
@@ -137,20 +137,20 @@ export default function AddRecipeForm() {
       try {
         const response = await fetch(defaultImage);
         const blob = await response.blob();
-        const defaultFile = new File([blob], "default.jpg", {
-          type: "image/jpeg"
+        const defaultFile = new File([blob], 'default.jpg', {
+          type: 'image/jpeg',
         });
         recipeData.thumb = defaultFile;
-      } catch (error) {
-        console.warn("Could not load default image:", error);
+      } catch (_error) {
+        // Ignore error for default image loading
       }
     }
 
     try {
       const result = await dispatch(addRecipe(recipeData));
 
-      if (result.meta.requestStatus === "fulfilled") {
-        toast.success("Recipe created successfully! 🎉");
+      if (result.meta.requestStatus === 'fulfilled') {
+        toast.success('Recipe created successfully! 🎉');
         const recipeId =
           result.payload?.data?.id ||
           result.payload?.recipe?.id ||
@@ -162,22 +162,22 @@ export default function AddRecipeForm() {
         if (recipeId) {
           navigate(`/recipes/${recipeId}`);
         } else {
-          navigate("/recipes");
+          navigate('/recipes');
         }
 
         reset();
         replaceIngredients([]);
-        setIngredient("");
-        setMeasure("");
+        setIngredient('');
+        setMeasure('');
         setPhoto(null);
         setPhotoPreview(null);
-      } else if (result.meta.requestStatus === "rejected") {
+      } else if (result.meta.requestStatus === 'rejected') {
         const errorMessage =
-          result.payload?.message || "Failed to create recipe";
+          result.payload?.message || 'Failed to create recipe';
         toast.error(errorMessage);
       }
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitted(false);
     }
@@ -199,7 +199,7 @@ export default function AddRecipeForm() {
                 src={photoPreview}
                 alt="Preview"
                 className={css.photoPreview}
-                onClick={(event) => {
+                onClick={event => {
                   event.stopPropagation();
                   setPhoto(null);
                   setPhotoPreview(null);
@@ -213,26 +213,26 @@ export default function AddRecipeForm() {
             type="file"
             accept="image/jpeg,image/jpg,image/png,image/webp"
             ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={(event) => {
+            style={{ display: 'none' }}
+            onChange={event => {
               const file = event.target.files[0];
               if (file) {
                 const allowedTypes = [
-                  "image/jpeg",
-                  "image/jpg",
-                  "image/png",
-                  "image/webp"
+                  'image/jpeg',
+                  'image/jpg',
+                  'image/png',
+                  'image/webp',
                 ];
                 if (!allowedTypes.includes(file.type)) {
-                  toast.error("Only JPG, PNG, or WEBP images are allowed.");
-                  event.target.value = "";
+                  toast.error('Only JPG, PNG, or WEBP images are allowed.');
+                  event.target.value = '';
                   return;
                 }
 
                 const maxSize = 2 * 1024 * 1024;
                 if (file.size > maxSize) {
-                  toast.error("Image size must be less than 2MB.");
-                  event.target.value = "";
+                  toast.error('Image size must be less than 2MB.');
+                  event.target.value = '';
                   return;
                 }
 
@@ -250,16 +250,16 @@ export default function AddRecipeForm() {
               <div className={css.recipeTitle}>
                 <p className={css.titleText}> Recipe Title </p>
                 <input
-                  className={`${css.formInput} ${errors.title ? css.err : ""}`}
+                  className={`${css.formInput} ${errors.title ? css.err : ''}`}
                   type="text"
                   placeholder="Enter the name of your recipe"
                   maxLength="64"
-                  {...register("title", {
-                    required: "Required field!",
+                  {...register('title', {
+                    required: 'Required field!',
                     maxLength: {
                       value: 64,
-                      message: "Title must be 64 characters or less"
-                    }
+                      message: 'Title must be 64 characters or less',
+                    },
                   })}
                 />
                 {errors.title && (
@@ -270,16 +270,16 @@ export default function AddRecipeForm() {
                 <p className={css.titleText}>Recipe Description</p>
                 <textarea
                   className={`${css.textarea} ${
-                    errors.description ? css.err : ""
+                    errors.description ? css.err : ''
                   }`}
                   placeholder="Enter a brief description of your recipe"
                   maxLength="200"
-                  {...register("description", {
-                    required: "Required field!",
+                  {...register('description', {
+                    required: 'Required field!',
                     maxLength: {
                       value: 200,
-                      message: "Description must be 200 characters or less"
-                    }
+                      message: 'Description must be 200 characters or less',
+                    },
                   })}
                 />
                 {errors.description && (
@@ -291,16 +291,16 @@ export default function AddRecipeForm() {
               <div className={css.recipeCooking}>
                 <p className={css.titleText}>Cooking time in minutes</p>
                 <input
-                  className={`${css.formInput} ${errors.time ? css.err : ""}`}
+                  className={`${css.formInput} ${errors.time ? css.err : ''}`}
                   type="number"
                   placeholder="10"
                   min="1"
-                  {...register("time", {
-                    required: "Required field!",
+                  {...register('time', {
+                    required: 'Required field!',
                     min: {
                       value: 1,
-                      message: "Time must be at least 1 minute"
-                    }
+                      message: 'Time must be at least 1 minute',
+                    },
                   })}
                 />
                 {errors.time && (
@@ -312,21 +312,21 @@ export default function AddRecipeForm() {
                   <p className={css.titleText}>Calories</p>
                   <input
                     className={`${css.formInput} ${
-                      errors.calories ? css.err : ""
+                      errors.calories ? css.err : ''
                     }`}
                     type="number"
                     placeholder="150 cals (optional)"
                     min="1"
                     max="10000"
-                    {...register("calories", {
+                    {...register('calories', {
                       min: {
                         value: 1,
-                        message: "Calories must be at least 1"
+                        message: 'Calories must be at least 1',
                       },
                       max: {
                         value: 10000,
-                        message: "Calories cannot exceed 10000"
-                      }
+                        message: 'Calories cannot exceed 10000',
+                      },
                     })}
                   />
                   {errors.calories && (
@@ -337,14 +337,14 @@ export default function AddRecipeForm() {
                   <p className={css.titleText}>Category</p>
                   <select
                     className={`${css.formInput} ${
-                      errors.category ? css.err : ""
+                      errors.category ? css.err : ''
                     }`}
-                    {...register("category", {
-                      required: "Required field!"
+                    {...register('category', {
+                      required: 'Required field!',
                     })}
                   >
                     <option value="">Select category</option>
-                    {categories.map((category) => (
+                    {categories.map(category => (
                       <option key={category.id} value={category.id}>
                         {category.name}
                       </option>
@@ -366,13 +366,13 @@ export default function AddRecipeForm() {
                   <p className={css.titleText}>Name</p>
                   <select
                     className={`${css.formInput} ${
-                      ingredientNameError ? css.err : ""
+                      ingredientNameError ? css.err : ''
                     }`}
                     value={ingredient}
-                    onChange={(e) => setIngredient(e.target.value)}
+                    onChange={e => setIngredient(e.target.value)}
                   >
                     <option value="">Select ingredient</option>
-                    {ingredients.map((item) => (
+                    {ingredients.map(item => (
                       <option key={item._id} value={item._id}>
                         {item.name}
                       </option>
@@ -386,12 +386,12 @@ export default function AddRecipeForm() {
                   <p className={css.titleText}>Amount</p>
                   <input
                     className={`${css.formInput} ${
-                      ingredientAmountError ? css.err : ""
+                      ingredientAmountError ? css.err : ''
                     }`}
                     placeholder="100g"
                     maxLength="64"
                     value={measure}
-                    onChange={(event) => setMeasure(event.target.value)}
+                    onChange={event => setMeasure(event.target.value)}
                   />
                   {ingredientAmountError && (
                     <span className={css.error}>{ingredientAmountError}</span>
@@ -425,7 +425,7 @@ export default function AddRecipeForm() {
                     <span className={css.spanMeasure}>{field.measure}</span>
                     {!isSubmitted && (
                       <Svg
-                        name={"trash"}
+                        name={'trash'}
                         styles={css.spanIcon}
                         onClick={() => removeIngredient(index)}
                       />
@@ -444,16 +444,16 @@ export default function AddRecipeForm() {
               <h3 className={css.sectionTitle}>Instructions</h3>
               <textarea
                 className={`${css.textarea} ${
-                  errors.instructions ? css.err : ""
+                  errors.instructions ? css.err : ''
                 }`}
                 placeholder="Enter instructions"
                 maxLength="1200"
-                {...register("instructions", {
-                  required: "Required field!",
+                {...register('instructions', {
+                  required: 'Required field!',
                   maxLength: {
                     value: 1200,
-                    message: "Instructions must be 1200 characters or less"
-                  }
+                    message: 'Instructions must be 1200 characters or less',
+                  },
                 })}
               />
               {errors.instructions && (
@@ -464,7 +464,7 @@ export default function AddRecipeForm() {
 
           <div className={css.bntContainer}>
             <button className={css.button} type="submit" disabled={isSubmitted}>
-              {isSubmitted ? "Publishing..." : "Publish Recipe"}
+              {isSubmitted ? 'Publishing...' : 'Publish Recipe'}
             </button>
           </div>
         </div>

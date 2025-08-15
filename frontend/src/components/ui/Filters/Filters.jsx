@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import css from "./Filters.module.css";
-import { CustomSelect } from "../CustomSelect/CustomSelect";
-import Svg from "../../common/Svg/svg";
-import { selectCategories } from "../../../redux/categories/selectors";
-import { selectIngredients } from "../../../redux/ingredients/selectors";
-import { fetchByFilters } from "../../../redux/recipes/operations.js";
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import css from './Filters.module.css';
+import { CustomSelect } from '../CustomSelect/CustomSelect';
+import Svg from '../../common/Svg/svg';
+import { selectCategories } from '../../../redux/categories/selectors';
+import { selectIngredients } from '../../../redux/ingredients/selectors';
+import { fetchByFilters } from '../../../redux/recipes/operations.js';
 
 const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const ingredients = useSelector(selectIngredients);
   const location = useLocation();
-  const isMainPage = location.pathname === "/";
+  const isMainPage = location.pathname === '/';
 
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
@@ -22,32 +22,32 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
 
   useEffect(() => {
     const resizeHandler = () => setSize(window.innerWidth);
-    window.addEventListener("resize", resizeHandler);
-    return () => window.removeEventListener("resize", resizeHandler);
+    window.addEventListener('resize', resizeHandler);
+    return () => window.removeEventListener('resize', resizeHandler);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       const target = event.target;
       const tag = target.tagName?.toLowerCase();
-      if (["select", "option", "svg", "path"].includes(tag)) return;
+      if (['select', 'option', 'svg', 'path'].includes(tag)) return;
 
       if (containerRef.current && !containerRef.current.contains(target)) {
         setOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  const handleCategoryChange = (value) => {
+  const handleCategoryChange = value => {
     setFilter({ ...filter, category: value.name, page: 1 });
   };
 
-  const handleIngredientChange = (value) => {
+  const handleIngredientChange = value => {
     setFilter({ ...filter, ingredient: value._id, page: 1 });
   };
 
@@ -56,14 +56,14 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
   }, [filter]);
 
   const handleReset = () => {
-    setFilter((prev) => ({
+    setFilter(prev => ({
       ...prev,
-      category: "",
-      ingredient: "",
-      title: "",
-      page: 1
+      category: '',
+      ingredient: '',
+      title: '',
+      page: 1,
     }));
-    if (typeof setSearchQuery === "function") setSearchQuery("");
+    if (typeof setSearchQuery === 'function') setSearchQuery('');
     setOpen(false);
   };
 
@@ -74,7 +74,7 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
           <h2 className={css.title}>
             {isSearched && filter.title.trim()
               ? `Search Results for “${filter.title.trim()}”`
-              : "Recepies"}
+              : 'Recepies'}
           </h2>
         )}
         <div className={css.divFilters}>
@@ -102,8 +102,8 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
                     label="Ingredient"
                     options={ingredients}
                     selected={
-                      ingredients.find((item) => item._id === filter.ingredient)
-                        ?.name || ""
+                      ingredients.find(item => item._id === filter.ingredient)
+                        ?.name || ''
                     }
                     onChange={handleIngredientChange}
                   />
@@ -113,12 +113,12 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
               <div className={css.divDropdown} ref={containerRef}>
                 <button
                   onClick={() => setOpen(!open)}
-                  className={`${css.btnDropdown} ${open ? css.btnNone : ""}`}
+                  className={`${css.btnDropdown} ${open ? css.btnNone : ''}`}
                 >
                   Filters
                   <Svg
-                    styles={`${css.svg} ${open ? css.svgNone : ""}`}
-                    name={"filter"}
+                    styles={`${css.svg} ${open ? css.svgNone : ''}`}
+                    name={'filter'}
                   />
                 </button>
 
@@ -145,8 +145,8 @@ const Filters = ({ filter, setFilter, total, isSearched, setSearchQuery }) => {
                         options={ingredients}
                         selected={
                           ingredients.find(
-                            (item) => item._id === filter.ingredient
-                          )?.name || ""
+                            item => item._id === filter.ingredient,
+                          )?.name || ''
                         }
                         onChange={handleIngredientChange}
                       />

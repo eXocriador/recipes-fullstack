@@ -1,10 +1,10 @@
-import css from "./AppBar.module.css";
-import UserMenu from "../../auth/UserMenu/UserMenu.jsx";
-import AuthNav from "../../auth/AuthNav/AuthNav.jsx";
-import { NavLink } from "react-router-dom";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../../redux/auth/selectors.js";
+import css from './AppBar.module.css';
+import UserMenu from '../../auth/UserMenu/UserMenu.jsx';
+import AuthNav from '../../auth/AuthNav/AuthNav.jsx';
+import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors.js';
 
 export default function AppBar({ toggleModal }) {
   const getLinkStyles = ({ isActive }) => {

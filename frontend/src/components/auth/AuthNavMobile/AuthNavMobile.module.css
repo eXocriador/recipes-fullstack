@@ -23,7 +23,7 @@
 }
 
 .active::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -35,7 +35,7 @@
 }
 
 .link:not(.active)::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -4px;
   left: 0;

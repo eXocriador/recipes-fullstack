@@ -30,16 +30,16 @@ export const startLogs = () => {
   const message = `
 ${chalk.bold.greenBright('🚀 FULLSTACK RECIPES BACKEND')}
 ${chalk.green('🌐 Local:')}      ${chalk.blue.underline(
-    `http://localhost:${port}`,
-  )}
+  `http://localhost:${port}`,
+)}
 ${chalk.green('📡 Network:')}    ${chalk.blue.underline(
-    `http://${localIP}:${port}`,
-  )}
+  `http://${localIP}:${port}`,
+)}
 ${chalk.green('🔧 Mode:')}       ${chalk.yellowBright(mode)}
 ${chalk.green('📟 MongoDB:')}    ${mongoStatus} (${db})
 ${chalk.green('🕒 Started at:')} ${chalk.greenBright(
-    new Date().toLocaleString(),
-  )}
+  new Date().toLocaleString(),
+)}
 `;
 
   console.log(

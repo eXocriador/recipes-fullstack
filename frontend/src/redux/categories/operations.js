@@ -1,14 +1,14 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { authInstance } from "../auth/operations";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { authInstance } from '../auth/operations';
 
 export const fetchCategories = createAsyncThunk(
-  "categories/fetchCategories",
+  'categories/fetchCategories',
   async (_, thunkAPI) => {
     try {
-      const response = await authInstance.get("/categories");
+      const response = await authInstance.get('/categories');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );

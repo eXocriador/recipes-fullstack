@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import css from "./RecipeIngredientsList.module.css";
-import { selectIngredients } from "../../../redux/ingredients/selectors.js";
+import css from './RecipeIngredientsList.module.css';
+import { selectIngredients } from '../../../redux/ingredients/selectors.js';
 
 export default function RecipeIngredientsList({ ingredients }) {
   const allIngredients = useSelector(selectIngredients);
@@ -11,11 +11,11 @@ export default function RecipeIngredientsList({ ingredients }) {
       <ul className={css.ingredientsList}>
         {ingredients.map(({ id, measure }) => {
           const found = allIngredients.find(
-            (ingredient) => ingredient._id === id
+            ingredient => ingredient._id === id,
           );
           return (
             <li className={css.ingredientsItem} key={id}>
-              {found?.name || "Unknown"} - {measure}
+              {found?.name || 'Unknown'} - {measure}
             </li>
           );
         })}

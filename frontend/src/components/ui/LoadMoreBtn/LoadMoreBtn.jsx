@@ -1,5 +1,5 @@
-import Container from "../../common/container/container";
-import styles from "./LoadMoreBtn.module.css";
+import Container from '../../common/container/container';
+import styles from './LoadMoreBtn.module.css';
 
 export default function LoadMoreBtn({ onClick }) {
   return (

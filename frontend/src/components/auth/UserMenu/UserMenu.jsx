@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import css from "./UserMenu.module.css";
-import clsx from "clsx";
-import Logout from "../logout/logout.jsx";
+import { NavLink } from 'react-router-dom';
+import css from './UserMenu.module.css';
+import clsx from 'clsx';
+import Logout from '../logout/logout.jsx';
 
 const getLinkStyles = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);

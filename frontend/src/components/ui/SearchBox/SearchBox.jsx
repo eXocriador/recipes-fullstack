@@ -1,6 +1,6 @@
-import Container from "../../common/container/container";
-import css from "./SearchBox.module.css";
-import { useState } from "react";
+import Container from '../../common/container/container';
+import css from './SearchBox.module.css';
+import { useState } from 'react';
 const SearchBox = ({
   filter,
   setFilter,
@@ -10,22 +10,21 @@ const SearchBox = ({
 }) => {
   const [error, setError] = useState(false);
 
-  const isValidQuery = (text) =>
-    /^[a-zA-Zа-яА-ЯіІїЇєЄ0-9\s]+$/.test(text.trim());
+  const isValidQuery = text => /^[a-zA-Zа-яА-ЯіІїЇєЄ0-9\s]+$/.test(text.trim());
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = e => {
     const value = e.target.value;
     setSearchQuery(value);
 
-    if (value.trim() !== "" && !isValidQuery(value)) {
+    if (value.trim() !== '' && !isValidQuery(value)) {
       setError(true);
     } else {
       setError(false);
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
       handleSearchClick();
     }
   };
@@ -53,7 +52,7 @@ const SearchBox = ({
             <input
               type="text"
               value={searchQuery}
-              className={`${css.input} ${error ? css.inputError : ""}`}
+              className={`${css.input} ${error ? css.inputError : ''}`}
               placeholder="Search recipes"
               onChange={handleSearchChange}
               onKeyDown={handleKeyDown}

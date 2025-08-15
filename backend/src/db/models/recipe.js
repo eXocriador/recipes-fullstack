@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ingredientInRecipeSchema = new mongoose.Schema({
-    id: {
+  id: {
     type: String,
     ref: 'Ingredient',
     required: true,
@@ -25,13 +25,13 @@ const recipeSchema = new mongoose.Schema(
     area: { type: String, maxlength: 64 },
     instructions: { type: String, required: true, maxlength: 1200 },
     description: { type: String, required: true, maxlength: 200 },
-    thumb: { type: String, },               
+    thumb: { type: String },
     thumbPublicId: { type: String },
-    time: { type: String, required: true, maxlength: 64 }, 
+    time: { type: String, required: true, maxlength: 64 },
     ingredients: { type: [ingredientInRecipeSchema], required: true },
     calories: { type: Number, min: 1, max: 10000 },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 export default mongoose.model('Recipe', recipeSchema);

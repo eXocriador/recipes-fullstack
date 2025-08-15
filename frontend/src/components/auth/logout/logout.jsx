@@ -1,11 +1,11 @@
-import css from "./logout.module.css";
-import Svg from "../../common/Svg/svg.jsx";
-import { selectUser } from "../../../redux/auth/selectors.js";
-import { useSelector } from "react-redux";
+import css from './logout.module.css';
+import Svg from '../../common/Svg/svg.jsx';
+import { selectUser } from '../../../redux/auth/selectors.js';
+import { useSelector } from 'react-redux';
 export default function Logout({ toggleModal }) {
   const userName = useSelector(selectUser);
   const cutUserName = () => {
-    if (!userName || userName.length === 0) return "";
+    if (!userName || userName.length === 0) return '';
     return userName[0];
   };
 

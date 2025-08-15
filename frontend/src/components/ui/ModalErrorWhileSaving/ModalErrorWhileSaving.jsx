@@ -1,24 +1,24 @@
-import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
-import Svg from "../../common/Svg/svg";
-import style from "./ModalErrorWhileSaving.module.css";
+import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import Svg from '../../common/Svg/svg';
+import style from './ModalErrorWhileSaving.module.css';
 
 export default function ModalErrorWhileSaving({ isModalOpen, onClose }) {
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [isModalOpen]);
 
   return (
     <>
       <div className={style.backdrop}>
-        <div className={style.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={style.modal} onClick={e => e.stopPropagation()}>
           <Svg styles={style.svg} onClick={onClose} name="cross" />
           <h2 className={style.title}>Error while saving</h2>
           <p className={style.text}>

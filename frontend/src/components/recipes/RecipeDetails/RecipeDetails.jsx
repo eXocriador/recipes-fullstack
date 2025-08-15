@@ -1,9 +1,9 @@
-import css from "./RecipeDetails.module.css";
-import GeneralInfoRecipe from "../GeneralInfoRecipe/GeneralInfoRecipe";
-import AboutRecipe from "../AboutRecipe/AboutRecipe";
-import PreparationRecipe from "../PreparationRecipe/PreparationRecipe";
-import RecipeIngredientsList from "../RecipeIngredientsList/RecipeIngredientsList";
-import Container from "../../common/container/container";
+import css from './RecipeDetails.module.css';
+import GeneralInfoRecipe from '../GeneralInfoRecipe/GeneralInfoRecipe';
+import AboutRecipe from '../AboutRecipe/AboutRecipe';
+import PreparationRecipe from '../PreparationRecipe/PreparationRecipe';
+import RecipeIngredientsList from '../RecipeIngredientsList/RecipeIngredientsList';
+import Container from '../../common/container/container';
 
 export default function RecipeDetails({ recipe }) {
   const {

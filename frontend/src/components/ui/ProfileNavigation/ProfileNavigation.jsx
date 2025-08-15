@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import css from "./ProfileNavigation.module.css";
+import { NavLink } from 'react-router-dom';
+import css from './ProfileNavigation.module.css';
 
-import clsx from "clsx";
+import clsx from 'clsx';
 
 export default function ProfileNavigation() {
   const getLinkStyles = ({ isActive }) => {

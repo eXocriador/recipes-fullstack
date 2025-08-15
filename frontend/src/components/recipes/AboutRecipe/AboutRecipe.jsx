@@ -1,4 +1,4 @@
-import css from "./AboutRecipe.module.css";
+import css from './AboutRecipe.module.css';
 export default function AboutRecipe({ description }) {
   return (
     <div className={css.aboutInfo}>

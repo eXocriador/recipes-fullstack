@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const ScrollHeader = ({ children }) => {
   const [show, setShow] = useState(true);
@@ -17,17 +17,17 @@ const ScrollHeader = ({ children }) => {
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
   return (
     <div
       style={{
-        position: "sticky",
+        position: 'sticky',
         top: 0,
-        transition: "transform 0.3s ease",
-        transform: show ? "translateY(0)" : "translateY(-100%)",
+        transition: 'transform 0.3s ease',
+        transform: show ? 'translateY(0)' : 'translateY(-100%)',
         zIndex: 999,
       }}
     >

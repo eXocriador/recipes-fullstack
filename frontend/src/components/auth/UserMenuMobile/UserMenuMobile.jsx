@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import css from "./UserMenuMobile.module.css";
-import clsx from "clsx";
-import Logout from "../logout/logout.jsx";
+import { NavLink } from 'react-router-dom';
+import css from './UserMenuMobile.module.css';
+import clsx from 'clsx';
+import Logout from '../logout/logout.jsx';
 
 export default function UserMenuMobile({ openMobile, toggleModal }) {
   const getLinkStyles = ({ isActive }) => {

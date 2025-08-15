@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-import { logOut } from "../auth/operations";
+import { logOut } from '../auth/operations';
 import {
   addRecipe,
   fetchById,
@@ -9,11 +9,11 @@ import {
   fetchFavouriteRecipes,
   deleteFavouriteRecipe,
   fetchOwnRecipes,
-  addFavouriteRecipe
-} from "./operations";
+  addFavouriteRecipe,
+} from './operations';
 
 const slice = createSlice({
-  name: "recipes",
+  name: 'recipes',
   initialState: {
     items: {
       ownItems: {
@@ -21,20 +21,20 @@ const slice = createSlice({
         items: [],
         hasNextPage: false,
         hasPreviousPage: false,
-        totalItems: 0
+        totalItems: 0,
       },
       allItems: {
         page: 1,
         items: [],
         hasNextPage: false,
-        hasPreviousPage: false
+        hasPreviousPage: false,
       },
       favoriteItems: {
         page: 1,
         items: [],
         hasNextPage: false,
         hasPreviousPage: false,
-        totalItems: 0
+        totalItems: 0,
       },
       filteredItems: {
         page: 1,
@@ -43,21 +43,21 @@ const slice = createSlice({
         hasPreviousPage: false,
         totalItems: 0,
         lastFilters: {
-          category: "",
-          ingredient: "",
-          title: ""
-        }
-      }
+          category: '',
+          ingredient: '',
+          title: '',
+        },
+      },
     },
     currentRecipe: null,
     loading: false,
     error: null,
     currentRecipeLoading: false,
-    favoriteLoading: false
+    favoriteLoading: false,
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchByPages.pending, (state) => {
+      .addCase(fetchByPages.pending, state => {
         state.loading = true;
         state.error = false;
       })
@@ -69,14 +69,14 @@ const slice = createSlice({
         const hasNextPage = action.payload.data.hasNextPage;
         const hasPreviousPage = action.payload.data.hasPreviousPage;
         const existingIds = new Set(
-          state.items.allItems.items.map((item) => item._id)
+          state.items.allItems.items.map(item => item._id),
         );
         const uniqueNewItems = newItems.filter(
-          (item) => !existingIds.has(item._id)
+          item => !existingIds.has(item._id),
         );
         state.items.allItems.items = [
           ...state.items.allItems.items,
-          ...uniqueNewItems
+          ...uniqueNewItems,
         ];
         state.items.allItems.page = page;
         state.items.allItems.hasNextPage = hasNextPage;
@@ -87,7 +87,7 @@ const slice = createSlice({
         state.error = action.payload.message;
         state.items.allItems.items = [];
       })
-      .addCase(addRecipe.pending, (state) => {
+      .addCase(addRecipe.pending, state => {
         state.loading = true;
         state.error = false;
       })
@@ -100,7 +100,7 @@ const slice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
-      .addCase(fetchById.pending, (state) => {
+      .addCase(fetchById.pending, state => {
         state.currentRecipeLoading = true;
         state.error = false;
         state.currentRecipe = null;
@@ -115,7 +115,7 @@ const slice = createSlice({
         state.currentRecipeLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(fetchOwnRecipes.pending, (state) => {
+      .addCase(fetchOwnRecipes.pending, state => {
         state.loading = true;
         state.error = false;
       })
@@ -136,14 +136,14 @@ const slice = createSlice({
           state.items.ownItems.items = newItems;
         } else {
           const existingIds = new Set(
-            state.items.ownItems.items.map((i) => i._id)
+            state.items.ownItems.items.map(i => i._id),
           );
           const filteredNewItems = newItems.filter(
-            (i) => !existingIds.has(i._id)
+            i => !existingIds.has(i._id),
           );
           state.items.ownItems.items = [
             ...state.items.ownItems.items,
-            ...filteredNewItems
+            ...filteredNewItems,
           ];
         }
 
@@ -156,7 +156,7 @@ const slice = createSlice({
         state.error = action.payload;
         state.items.ownItems.items = [];
       })
-      .addCase(fetchFavouriteRecipes.pending, (state) => {
+      .addCase(fetchFavouriteRecipes.pending, state => {
         state.favoriteLoading = true;
         state.error = false;
       })
@@ -175,14 +175,14 @@ const slice = createSlice({
           state.items.favoriteItems.items = newItems;
         } else {
           const existingIds = new Set(
-            state.items.favoriteItems.items.map((i) => i._id)
+            state.items.favoriteItems.items.map(i => i._id),
           );
           const filteredNewItems = newItems.filter(
-            (i) => !existingIds.has(i._id)
+            i => !existingIds.has(i._id),
           );
           state.items.favoriteItems.items = [
             ...state.items.favoriteItems.items,
-            ...filteredNewItems
+            ...filteredNewItems,
           ];
         }
 
@@ -195,10 +195,10 @@ const slice = createSlice({
         state.error = action.payload.message;
         state.items.favoriteItems.items = [];
       })
-      .addCase(addFavouriteRecipe.pending, (state) => {
+      .addCase(addFavouriteRecipe.pending, state => {
         state.error = false;
       })
-      .addCase(addFavouriteRecipe.fulfilled, (state, action) => {
+      .addCase(addFavouriteRecipe.fulfilled, (state, _action) => {
         state.favoriteLoading = false;
         state.error = false;
       })
@@ -210,35 +210,35 @@ const slice = createSlice({
         const deletedId = action.meta.arg;
         state.items.favoriteItems.items =
           state.items.favoriteItems.items.filter(
-            (recipe) => recipe._id !== deletedId
+            recipe => recipe._id !== deletedId,
           );
         state.items.favoriteItems.totalItems = Math.max(
           0,
-          state.items.favoriteItems.totalItems - 1
+          state.items.favoriteItems.totalItems - 1,
         );
       })
-      .addCase(deleteFavouriteRecipe.pending, (state) => {
+      .addCase(deleteFavouriteRecipe.pending, state => {
         state.favoriteLoading = true;
         state.error = false;
       })
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(logOut.fulfilled, state => {
         state.items.ownItems = {
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false
+          hasPreviousPage: false,
         };
         state.items.allItems = {
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false
+          hasPreviousPage: false,
         };
         state.items.favoriteItems = {
           page: 1,
           items: [],
           hasNextPage: false,
-          hasPreviousPage: false
+          hasPreviousPage: false,
         };
         state.items.filteredItems = {
           page: 1,
@@ -247,13 +247,13 @@ const slice = createSlice({
           hasPreviousPage: false,
           totalItems: 0,
           lastFilters: {
-            category: "",
-            ingredient: "",
-            title: ""
-          }
+            category: '',
+            ingredient: '',
+            title: '',
+          },
         };
       })
-      .addCase(fetchByFilters.pending, (state) => {
+      .addCase(fetchByFilters.pending, state => {
         state.loading = true;
         state.error = false;
       })
@@ -270,9 +270,9 @@ const slice = createSlice({
         state.items.filteredItems.totalItems = payload.totalItems || 0;
 
         const currentFilters = {
-          category: action.meta.arg.category || "",
-          ingredient: action.meta.arg.ingredient || "",
-          title: action.meta.arg.title || ""
+          category: action.meta.arg.category || '',
+          ingredient: action.meta.arg.ingredient || '',
+          title: action.meta.arg.title || '',
         };
 
         const filtersChanged =
@@ -287,14 +287,14 @@ const slice = createSlice({
           state.items.filteredItems.lastFilters = currentFilters;
         } else {
           const existingIds = new Set(
-            state.items.filteredItems.items.map((item) => item._id)
+            state.items.filteredItems.items.map(item => item._id),
           );
           const uniqueNewItems = newItems.filter(
-            (item) => !existingIds.has(item._id)
+            item => !existingIds.has(item._id),
           );
           state.items.filteredItems.items = [
             ...state.items.filteredItems.items,
-            ...uniqueNewItems
+            ...uniqueNewItems,
           ];
         }
 
@@ -306,9 +306,9 @@ const slice = createSlice({
         state.loading = false;
         state.error =
           (action.payload && action.payload.message) ||
-          (typeof action.payload === "string" && action.payload) ||
+          (typeof action.payload === 'string' && action.payload) ||
           action.error?.message ||
-          "Something went wrong";
+          'Something went wrong';
         state.items.filteredItems.items = [];
       });
     // .addCase(deleteRecipe.fulfilled, (state, action) => {
@@ -321,7 +321,7 @@ const slice = createSlice({
     //   state.loading = false;
     //   state.error = true;
     // })
-  }
+  },
 });
 
 export default slice.reducer;

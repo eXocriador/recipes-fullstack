@@ -1,35 +1,35 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import svgr from "vite-plugin-svgr";
-import dsv from "@rollup/plugin-dsv";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
+import dsv from '@rollup/plugin-dsv';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
+  base: '/',
   plugins: [
     react(),
     svgr({
       svgrOptions: {
-        exportType: "default",
+        exportType: 'default',
         ref: true,
         svgo: false,
-        titleProp: true
+        titleProp: true,
       },
-      include: "**/*.svg"
+      include: '**/*.svg',
     }),
-    dsv()
+    dsv(),
   ],
   build: {
-    sourcemap: true
+    sourcemap: true,
   },
   server: {
     port: 5173,
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   css: {
     modules: {
-      localsConvention: "camelCaseOnly"
-    }
-  }
+      localsConvention: 'camelCaseOnly',
+    },
+  },
 });

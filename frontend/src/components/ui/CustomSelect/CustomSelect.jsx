@@ -1,10 +1,10 @@
-import { Fragment, useMemo, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import Svg from "../../common/Svg/svg";
-import css from "./CustomSelect.module.css";
+import { Fragment, useMemo, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import Svg from '../../common/Svg/svg';
+import css from './CustomSelect.module.css';
 
 export const CustomSelect = ({ label, options, selected, onChange }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   const filteredOptions = useMemo(() => {
     if (!query) {
@@ -12,9 +12,7 @@ export const CustomSelect = ({ label, options, selected, onChange }) => {
     }
 
     return options
-      .filter((option) =>
-        option.name.toLowerCase().includes(query.toLowerCase())
-      )
+      .filter(option => option.name.toLowerCase().includes(query.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name));
   }, [query, options]);
 
@@ -22,16 +20,16 @@ export const CustomSelect = ({ label, options, selected, onChange }) => {
     <div className={css.divCustomSelect}>
       <Listbox
         value={selected}
-        onChange={(val) => {
+        onChange={val => {
           onChange(val);
-          setQuery("");
+          setQuery('');
         }}
       >
         <div className={css.divButton}>
           <Listbox.Button className={css.listboxButton}>
             <span className={css.btnSpan1}>{selected || label}</span>
             <span className={css.btnSpan2}>
-              <Svg styles={css.svg} name={"dropDownArrow"}></Svg>
+              <Svg styles={css.svg} name={'dropDownArrow'}></Svg>
             </span>
           </Listbox.Button>
 
@@ -48,13 +46,13 @@ export const CustomSelect = ({ label, options, selected, onChange }) => {
                   placeholder="Search..."
                   className={css.searchInput}
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={e => setQuery(e.target.value)}
                 />
               </div>
               {filteredOptions.length === 0 ? (
                 <div className={css.option}>Nothing found</div>
               ) : (
-                filteredOptions.map((option) => (
+                filteredOptions.map(option => (
                   <Listbox.Option
                     key={option._id}
                     value={option}

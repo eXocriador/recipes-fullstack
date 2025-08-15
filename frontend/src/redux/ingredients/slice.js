@@ -1,28 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchIngredients } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchIngredients } from './operations';
 
 const initialState = {
   items: [],
-  status: "idle",
+  status: 'idle',
   error: null,
 };
 
 const ingredientsSlice = createSlice({
-  name: "ingredients",
+  name: 'ingredients',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchIngredients.pending, (state) => {
-        state.status = "loading";
+      .addCase(fetchIngredients.pending, state => {
+        state.status = 'loading';
         state.error = null;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
-        state.status = "successed";
+        state.status = 'successed';
         state.items = action.payload;
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload;
       });
   },

@@ -1,11 +1,11 @@
-import AppBar from "../AppBar/AppBar.jsx";
-import css from "./Header.module.css";
-import Container from "../../common/container/container.jsx";
-import Logo from "../../ui/logo/logo.jsx";
-import { useEffect, useState } from "react";
-import Burger from "../../ui/burger/burger.jsx";
-import MobileMenu from "../../ui/mobileMenu/MobileMenu.jsx";
-import ScrollHeader from "../ScrollHeader/ScrollHeader.jsx";
+import AppBar from '../AppBar/AppBar.jsx';
+import css from './Header.module.css';
+import Container from '../../common/container/container.jsx';
+import Logo from '../../ui/logo/logo.jsx';
+import { useEffect, useState } from 'react';
+import Burger from '../../ui/burger/burger.jsx';
+import MobileMenu from '../../ui/mobileMenu/MobileMenu.jsx';
+import ScrollHeader from '../ScrollHeader/ScrollHeader.jsx';
 
 // import RefreshToken from '../RefreshToken/RefrehsToken.jsx'
 
@@ -13,12 +13,12 @@ export default function Header({
   toggleModal,
   mobileMenuHandler,
   isMobileMenuOpened,
-  setIsMobileMenuOpened
+  setIsMobileMenuOpened,
 }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
     const handleResize = () => {
       const isNowMobile = mediaQuery.matches;
       setIsMobile(isNowMobile);
@@ -27,9 +27,9 @@ export default function Header({
       }
     };
     handleResize();
-    mediaQuery.addEventListener("change", handleResize);
+    mediaQuery.addEventListener('change', handleResize);
     return () => {
-      mediaQuery.removeEventListener("change", handleResize);
+      mediaQuery.removeEventListener('change', handleResize);
     };
   }, [isMobileMenuOpened]);
   return (
@@ -54,13 +54,13 @@ export default function Header({
           <>
             <div
               style={{
-                position: "fixed",
+                position: 'fixed',
                 top: 0,
                 left: 0,
-                width: "100vw",
-                height: "100vh",
-                background: "rgba(0,0,0,0.3)",
-                zIndex: 998
+                width: '100vw',
+                height: '100vh',
+                background: 'rgba(0,0,0,0.3)',
+                zIndex: 998,
               }}
               onClick={() => setIsMobileMenuOpened(false)}
             />

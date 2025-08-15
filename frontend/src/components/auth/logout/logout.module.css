@@ -10,7 +10,7 @@
 }
 
 .svg:hover,
-.svg:active{
+.svg:active {
   transform: scale(1.5);
 }
 .stick {

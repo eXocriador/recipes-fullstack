@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
-import css from "./GeneralInfoRecipe.module.css";
-import Svg from "../../common/Svg/svg";
-import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-import { selectFavoriteRecipes } from "../../../redux/recipes/selectors";
+import css from './GeneralInfoRecipe.module.css';
+import Svg from '../../common/Svg/svg';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors';
+import { selectFavoriteRecipes } from '../../../redux/recipes/selectors';
 import {
   deleteFavouriteRecipe,
   addFavouriteRecipe,
-  fetchFavouriteRecipes
-} from "../../../redux/recipes/operations";
+  fetchFavouriteRecipes,
+} from '../../../redux/recipes/operations';
 
 export default function GeneralInfoRecipe({ category, time, calories, id }) {
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
   }, [dispatch, isLoggedIn]);
 
   // Determine if this recipe is in favorites
-  const isFavRedux = favoriteRecipes.some((item) => item._id === id);
+  const isFavRedux = favoriteRecipes.some(item => item._id === id);
   const isFav = optimisticFav === null ? isFavRedux : optimisticFav;
 
   // Sync optimisticFav with redux when redux changes
@@ -37,11 +37,11 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
     setOptimisticFav(null);
   }, [isFavRedux]);
 
-  const handleToggle = async (e) => {
+  const handleToggle = async e => {
     if (e) e.preventDefault();
     if (!isLoggedIn) {
-      toast("Please login to save recipes");
-      navigate("/auth/login");
+      toast('Please login to save recipes');
+      navigate('/auth/login');
       return;
     }
     setLoading(true);
@@ -49,14 +49,14 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
       if (isFav) {
         setOptimisticFav(false);
         await dispatch(deleteFavouriteRecipe(id)).unwrap();
-        toast.success("Recipe removed from favorites");
+        toast.success('Recipe removed from favorites');
       } else {
         setOptimisticFav(true);
         await dispatch(addFavouriteRecipe(id)).unwrap();
-        toast.success("Recipe added to favorites");
+        toast.success('Recipe added to favorites');
       }
     } catch (err) {
-      toast.error(err?.message || "Something went wrong");
+      toast.error(err?.message || 'Something went wrong');
       setOptimisticFav(null); // reset optimisticFav on error
     } finally {
       setLoading(false);
@@ -78,7 +78,7 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
         <p className={css.infoText}>
           Caloric content:
           <span className={css.text}>
-            Approximately {calories || "-"} kcal per serving
+            Approximately {calories || '-'} kcal per serving
           </span>
         </p>
       </div>
@@ -88,7 +88,7 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
         type="button"
         disabled={loading}
       >
-        {loading ? "Loading..." : isFav ? "Remove" : "Save"}
+        {loading ? 'Loading...' : isFav ? 'Remove' : 'Save'}
         <Svg styles={css.icon} name="bookmark" />
       </button>
     </div>

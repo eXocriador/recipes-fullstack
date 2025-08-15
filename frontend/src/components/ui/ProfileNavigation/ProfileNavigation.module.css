@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 .active::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -26,7 +26,7 @@
   pointer-events: none;
 }
 ink:not(.active)::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -4px;
   left: 0;

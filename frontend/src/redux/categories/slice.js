@@ -1,28 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchCategories } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchCategories } from './operations';
 
 const initialState = {
   items: [],
-  status: "idle",
+  status: 'idle',
   error: null,
 };
 
 const categoriesSlice = createSlice({
-  name: "categories",
+  name: 'categories',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchCategories.pending, (state) => {
-        state.status = "loading";
+      .addCase(fetchCategories.pending, state => {
+        state.status = 'loading';
         state.error = null;
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
-        state.status = "successed";
+        state.status = 'successed';
         state.items = action.payload;
       })
       .addCase(fetchCategories.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.payload;
       });
   },

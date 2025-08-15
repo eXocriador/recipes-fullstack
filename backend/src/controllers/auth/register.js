@@ -1,4 +1,3 @@
-
 import { registerUser } from '../../services/auth/user.js';
 
 export const registerUserController = async (req, res) => {

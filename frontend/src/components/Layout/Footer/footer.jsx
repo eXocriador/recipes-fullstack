@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import Logo from "../../ui/logo/logo.jsx";
-import css from "./footer.module.css";
-import Container from "../../common/container/container.jsx";
+import { NavLink } from 'react-router-dom';
+import Logo from '../../ui/logo/logo.jsx';
+import css from './footer.module.css';
+import Container from '../../common/container/container.jsx';
 export default function Footer() {
   return (
     <footer className={css.footer}>

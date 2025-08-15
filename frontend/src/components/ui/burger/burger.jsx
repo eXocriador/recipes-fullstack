@@ -1,5 +1,5 @@
-import Svg from "../../common/Svg/svg.jsx";
-import css from "./burger.module.css";
+import Svg from '../../common/Svg/svg.jsx';
+import css from './burger.module.css';
 export default function Burger({ openMobile, isOpened }) {
   return (
     <>

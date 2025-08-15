@@ -85,7 +85,7 @@
   cursor: pointer;
   background: var(--light-brown);
   transform: scale(0.95);
-  color:var(--white);
+  color: var(--white);
   border: none;
 }
 
@@ -99,12 +99,12 @@
 
 .list li .link:hover {
   border: none;
-  transform: scale(0.95)
+  transform: scale(0.95);
 }
 
 .list li .link:focus {
   border: var(--white);
-  transform: scale(0.95)
+  transform: scale(0.95);
 }
 
 .list li:last-child .link {
@@ -155,7 +155,6 @@
   background-color: var(--red);
   border: none;
   &:hover {
-    transform: scale(0.95)
+    transform: scale(0.95);
   }
 }
-

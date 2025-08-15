@@ -1,28 +1,24 @@
-import css from "./App.module.css";
-import Layout from "./layout/Layout.jsx";
-import { Toaster } from "react-hot-toast";
-import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage.jsx";
-import ListWrapper from "./common/ListWrapper/ListWrapper.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, refreshUser } from "../redux/auth/operations.js";
-import {
-  selectUserData,
-  selectIsLoggedIn,
-  selectToken,
-} from "../redux/auth/selectors.js";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage.jsx";
-import { fetchCategories } from "../redux/categories/operations.js";
-import { fetchIngredients } from "../redux/ingredients/operations.js";
-import { fetchByPages } from "../redux/recipes/operations.js";
+import css from './App.module.css';
+import Layout from './layout/Layout.jsx';
+import { Toaster } from 'react-hot-toast';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import MainPage from '../pages/MainPage.jsx';
+import ListWrapper from './common/ListWrapper/ListWrapper.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfo, refreshUser } from '../redux/auth/operations.js';
+import { selectIsLoggedIn, selectToken } from '../redux/auth/selectors.js';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
+import { fetchCategories } from '../redux/categories/operations.js';
+import { fetchIngredients } from '../redux/ingredients/operations.js';
+import { fetchByPages } from '../redux/recipes/operations.js';
 
-const AuthPage = lazy(() => import(`../pages/AuthPage.jsx`));
-const AddRecipePage = lazy(() => import(`../pages/AddRecipePage.jsx`));
-const ProfilePage = lazy(() => import(`../pages/ProfilePage/ProfilePage.jsx`));
-const RecipeViewPage = lazy(() => import(`../pages/RecipeViewPage.jsx`));
-const RestrictedRoute = lazy(() => import(`./auth/RestrictedRoute.jsx`));
-const PrivateRoute = lazy(() => import(`./auth/PrivateRoute.jsx`));
+const AuthPage = lazy(() => import('../pages/AuthPage.jsx'));
+const AddRecipePage = lazy(() => import('../pages/AddRecipePage.jsx'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage.jsx'));
+const RecipeViewPage = lazy(() => import('../pages/RecipeViewPage.jsx'));
+const RestrictedRoute = lazy(() => import('./auth/RestrictedRoute.jsx'));
+const PrivateRoute = lazy(() => import('./auth/PrivateRoute.jsx'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -35,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     if (token && !isLoggedIn) {
-      dispatch(refreshUser()).then((action) => {
+      dispatch(refreshUser()).then(action => {
         if (refreshUser.fulfilled.match(action)) {
           dispatch(getUserInfo());
         }
@@ -54,12 +50,12 @@ export default function App() {
       <Toaster
         toastOptions={{
           duration: 3000,
-          position: "top-left",
+          position: 'top-left',
           style: {
-            background: "var(--light-brown)",
-            color: "var(--white)",
-            fontSize: "12px",
-            borderRadius: "8px",
+            background: 'var(--light-brown)',
+            color: 'var(--white)',
+            fontSize: '12px',
+            borderRadius: '8px',
           },
         }}
       />
