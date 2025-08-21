@@ -1,0 +1,27 @@
+.svg {
+  width: 33px;
+  height: 33px;
+  fill: var(--white);
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.logoName {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+.container:hover .svg,
+.container:hover .logoName {
+  fill: var(--light-gray);
+  color: var(--light-gray);
+}
+.container:focus .svg,
+.container:focus .logoName {
+  fill: var(--light-gray);
+  color: var(--light-gray);
+}

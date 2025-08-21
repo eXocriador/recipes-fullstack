@@ -1,0 +1,164 @@
+.section {
+  padding-top: 128px;
+  padding-bottom: 98px;
+  position: relative;
+  width: 100%;
+
+  background-color: #2e2f42;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.9),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url("/images/background-hero.jpg");
+  background-size: cover;
+  background-position: center left 40%;
+  background-repeat: no-repeat;
+}
+
+
+.searchDiv {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 329px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.23;
+  color: #ffffff;
+}
+
+.inputDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input {
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px;
+
+  height: 46px;
+  max-height: 48px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000;
+}
+
+.input::placeholder {
+  color: #9f9f9f;
+}
+
+/* .input:focus {
+  box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  border: 1.5px solid #d9d9d9;
+} */
+
+.inputError {
+  border: 1.5px solid var(--red);
+}
+
+.btnSearch {
+  background-color: #9b6c43;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  height: 46px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btnSearch:hover {
+  background-color: #6d554b;
+}
+
+.btnSearch:disabled {
+  opacity: 0.8;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 12px;
+  color: #ff0000a2;
+  width: 200px;
+  position: absolute;
+  bottom: 50px;
+  left: 12px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-bottom: 128px;
+    height: 443px;
+    background-position: center top 70%;
+  }
+
+  .searchDiv {
+    max-width: 704px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 1.1;
+    width: 442px;
+  }
+
+  .inputDiv {
+    flex-direction: row;
+  }
+
+  .input {
+    width: 471px;
+  }
+
+  .btnSearch {
+    width: 176px;
+  }
+
+  .error {
+    bottom: -20px;
+    left: 12px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    background-size: 100%;
+    background-position: center top 23%;
+  }
+
+  .title {
+    line-height: 1.22;
+  }
+
+  .searchDiv {
+    max-width: 1225px;
+  }
+
+  .inputDiv {
+    gap: 12px;
+  }
+
+  .input {
+    width: 459px;
+  }
+
+  .btnSearch {
+    width: 190px;
+  }
+
+  .error {
+    bottom: -20px;
+    left: 12px;
+  }
+}

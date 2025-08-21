@@ -1,0 +1,187 @@
+.recipeCardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.imgWrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  max-height: 230px;
+  border-radius: 16px;
+}
+.img {
+  display: block;
+  background-color: var(--brown);
+  width: 100%;
+  object-fit: cover;
+  height: auto;
+}
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  flex-grow: 1;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--black);
+  height: 58px;
+  line-height: 28px;
+  overflow: hidden;
+}
+.svgWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 2px 8px 2px 4px;
+  width: 53px;
+  height: 28px;
+  padding: 4px;
+}
+.svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: black;
+}
+.minutes {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--black);
+}
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.text {
+  height: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--black);
+  max-width: 337px;
+  overflow: hidden;
+}
+.text1 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--black);
+}
+.btnWrapper {
+  display: flex;
+}
+.learnMoreBtn {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--black);
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+.svg1Wrapper {
+  margin-left: 8px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+}
+.svg1WrapperActive {
+  margin-left: 8px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--light-brown);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  background: var(--light-brown);
+}
+.svg1 {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--black);
+}
+.svg1Active {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--white);
+}
+.learnMoreBtn {
+  transition: background-color 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.learnMoreBtn:hover {
+  background: var(--light-gray);
+  border: none;
+  cursor: pointer;
+}
+
+.learnMoreBtn:focus {
+  border: var(--white);
+  box-shadow: 0 0 0 2px var(--white);
+  background: var(--light-gray);
+  outline: none;
+}
+
+.svg1WrapperActive {
+  transition: background-color 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  cursor: pointer;
+}
+
+.svg1WrapperActive:hover,
+.svg1WrapperActive:focus {
+  background-color: var(--brown);
+}
+
+.svg1Wrapper {
+  transition: border 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.svg1Wrapper:hover,
+.svg1Wrapper:focus {
+  border: var(--light-gray);
+}
+
+.svg1 {
+  transition: stroke 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.svg1:hover,
+.svg1:focus {
+  stroke: var(--light-gray);
+}
+@media (min-width: 768px) {
+  .imgWrapper {
+    width: 315px;
+    border-radius: 8px;
+  }
+  .text {
+    max-width: 315px;
+  }
+}
+@media (min-width: 1440px) {
+  .imgWrapper {
+    width: 264px;
+    max-height: 178px;
+  }
+  .text {
+    max-width: 264px;
+  }
+}

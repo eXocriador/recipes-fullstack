@@ -1,0 +1,158 @@
+.loginForm {
+    max-width: 362px;
+    margin: 91px auto;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 32px;
+    padding: 48px 32px;
+    background-color: var(--light-beige);
+}
+
+.inputForm{
+    height: 146px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.loginText{
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 32px;
+    text-align: center;
+    color: var(--black);
+    padding-bottom: 20px;
+}
+
+.loginLabel {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--black);
+  }
+
+.loginInput {
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+    height: 41px;
+    background: var(--white);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 155%;
+    color: var(--black);
+}
+
+.loginInput.err{
+    border: 1px solid var(--red);
+}
+.loginInput:hover,
+.loginInput:focus {
+    border-color: var(--black);
+}
+
+.passwordField{
+    position: relative;
+}
+
+.iconEye {
+    position: absolute;
+    right: 3%;
+    top: 52%;
+    fill: none;
+    stroke: var(--black);
+    width:24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.buttonForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 83px;
+    padding-top: 7px;
+}
+
+.loginBtn {
+    border-radius: 8px;
+    width: 100%;
+    height: 36px;
+    background: var(--light-brown);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.loginBtn:hover {
+    background-color: var(--brown);
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+.regText{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 155%;
+    text-align: center;
+    color: var(--black);
+}
+.regLink {
+    font-weight: 600;
+    text-decoration: underline;
+    }
+
+
+.error {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    z-index: 1;
+    padding: 2px 4px;
+    background: none;
+    border-radius: 4px;
+    border: none;
+    color: var(--red);
+    font-size: 10px;
+}
+
+.errorPass {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    z-index: 1;
+    padding: 2px 4px;
+    background:none;
+    border-radius: 4px;
+    border: none;
+    color: var(--red);
+    font-size: 10px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .loginForm {
+        min-width: 522px;
+    }
+    
+    .iconEye {
+        right: 3%;
+        top: 52%;
+
+    }
+}
+
+  @media screen and (min-width: 1158px) {
+    .loginForm {
+        min-width: 420px;
+    }
+
+    .iconEye {
+        right: 3%;
+        top: 52%;
+    }
+}
+

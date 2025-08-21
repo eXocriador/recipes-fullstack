@@ -1,0 +1,38 @@
+summary: Log out the user
+operationId: logoutUser
+tags:
+  - Auth
+parameters:
+  - in: cookie
+    name: refreshToken
+    description: The refresh token, passed through cookies, used to log out the user
+    required: true
+    schema:
+      type: string
+responses:
+  204:
+    description: Successfully logged out, no content returned
+
+  400:
+    description: Bad request, typically missing or invalid refresh token
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
+        example:
+          status: 400
+          message: 'Invalid refresh token'
+          data: 'Refresh token cookie is missing or malformed'
+
+  401:
+    description: Unauthorized, if no valid session exists
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
+        example:
+          status: 401
+          message: 'Something went wrong'
+          data: 'Not authenticated'
+  500:
+    $ref: ../../../components/responses/500.yaml

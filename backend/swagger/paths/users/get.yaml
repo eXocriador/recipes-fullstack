@@ -1,0 +1,39 @@
+tags:
+  - Users
+summary: Get current user info
+description: Retrieve the currently authenticated user's profile data.
+operationId: getCurrentUserInfo
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: User information retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: User information retrieved successfully
+            data:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 662fe63f1cb2d9ee6dd831a1
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: john@example.com
+                favorites:
+                  type: array
+                  items:
+                    type: string
+                    description: Recipe ID
+                    example: 662fe12345cb2d9ee6dd8abc

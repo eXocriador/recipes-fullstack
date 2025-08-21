@@ -1,0 +1,96 @@
+type: object
+required:
+  - _id
+  - title
+  - category
+  - owner
+  - instructions
+  - description
+  - time
+  - ingredients
+  - createdAt
+  - updatedAt
+properties:
+  _id:
+    description: Recipe's id
+    type: string
+    example: 6462a8f74c3d0ddd28897fd4
+  title:
+    description: Recipe's title
+    type: string
+    maxLength: 64
+    example: Beef Brisket Pot Roast
+  category:
+    description: Recipe's category
+    type: string
+    example: Beef
+  owner:
+    description: ID of the user who created the recipe
+    type: string
+    example: 64c8d958249fae54bae90bb9
+  area:
+    description: Cuisine or cultural origin
+    type: string
+    maxLength: 64
+    example: American
+  instructions:
+    description: Full cooking instructions
+    type: string
+    maxLength: 1200
+    example: On one side of the brisket there should be a layer of fat, which you want. If there are any large chunks of fat, cut them off and discard them. Large pieces of fat will not be able to render out completely. Using a sharp knife, score the fat in parallel lines, about 3/4-inch apart. Slice through the fat, not the beef. Repeat in the opposite direction to make a cross-hatch pattern. Cover the pot, place the pot in the 300°F oven and cook for 3 hours. Carefully flip the brisket every hour so it cooks evenly...
+  description:
+    description: Recipe's description
+    type: string
+    maxLength: 200
+    example: A comforting American dish of beef brisket slow-cooked with root veget…
+  thumb:
+    description: Full-size recipe image (optional)
+    type: string
+    format: uri
+    example: https://example.com/images/full/english-breakfast.jpg
+    nullable: true
+  thumbPublicId:
+    description: Cloudinary public ID for image (optional)
+    type: string
+    example: recipe/american-breakfast-xyz123
+    nullable: true
+  time:
+    description: Time required to prepare the dish, in minutes
+    type: string
+    maxLength: 64
+    example: '51'
+  ingredients:
+    description: List of ingredients used in the recipe
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required:
+        - id
+        - measure
+      properties:
+        id:
+          description: ID of the ingredient (referenced from Ingredient model)
+          type: string
+          example: 640c2dd963a319ea671e366c
+        measure:
+          description: Quantity or measure of the ingredient
+          type: string
+          maxLength: 64
+          example: 4-5 pound
+  calories:
+    description: Recipe's calories
+    type: integer
+    minimum: 1
+    maximum: 10000
+    example: 450
+  createdAt:
+    description: Timestamp when the recipe was created
+    type: string
+    format: date-time
+    example: 2023-03-11T19:25:33.243Z
+  updatedAt:
+    description: Timestamp when the recipe was last updated
+    type: string
+    format: date-time
+    example: 2023-12-03T10:46:32.250Z

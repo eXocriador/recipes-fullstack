@@ -1,0 +1,19 @@
+.svg {
+  width: 33px;
+  height: 32px;
+  stroke: var(--white);
+  &:hover {
+    stroke: var(--light-gray);
+    cursor: pointer;
+  }
+}
+.svgCross {
+  width: 33px;
+  height: 32px;
+  stroke: var(--white);
+  fill: none;
+  &:hover {
+    stroke: var(--light-gray);
+    cursor: pointer;
+  }
+}

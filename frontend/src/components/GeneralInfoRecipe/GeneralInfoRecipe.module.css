@@ -1,0 +1,102 @@
+/* 320px styles */
+.generalBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.generalInfo {
+  border-radius: 16px;
+  padding: 16px;
+  max-width: 361px;
+  background-color: var(--light-beige);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.recipeTitle {
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--black);
+}
+.infoText {
+  font-size: 16px;
+  color: var(--black);
+  font-weight: bold;
+  line-height: 1.55;
+}
+.text {
+  font-weight: 400;
+  line-height: 1.55;
+  padding-left: 8px;
+}
+.saveBtn {
+  border-radius: 8px;
+  max-width: 361px;
+  background-color: var(--light-brown);
+  border: none;
+  align-items: center;
+  width: 100%;
+  max-height: 56px;
+  padding: 16px 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--white);
+  cursor: pointer;
+}
+.saveBtn:hover {
+  background-color: var(--brown);
+  transform: scale(0.95);
+  box-shadow: none;
+}
+.icon {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1px;
+  stroke: var(--white);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  fill: none;
+}
+/* 768px styles */
+@media screen and (min-width: 768px) {
+  .generalBox {
+    display: flex;
+    flex-direction: row;
+  }
+  .generalInfo {
+    padding: 24px;
+    max-width: 431px;
+  }
+
+  .infoText {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.55;
+  }
+  .text {
+    font-weight: 400;
+    line-height: 1.55;
+    padding-left: 8px;
+  }
+  .saveBtn {
+    max-width: 249px;
+    width: 100%;
+  }
+}
+/* 1440px styles */
+@media screen and (min-width: 1440px) {
+  .generalBox {
+    display: flex;
+    flex-direction: column;
+  }
+  .generalInfo {
+    max-width: 393px;
+    width: 393px;
+  }
+  .saveBtn {
+    max-width: 393px;
+    padding: 16px 0;
+  }
+}

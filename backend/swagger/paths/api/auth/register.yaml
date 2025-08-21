@@ -1,0 +1,42 @@
+summary: Register a new user
+operationId: registerUser
+tags:
+  - Auth
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            maxLength: 128
+            example: 'user@example.com'
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: 'password123'
+          name:
+            type: string
+            maxLength: 16
+            example: 'Full Name'
+        required:
+          - email
+          - password
+          - name
+responses:
+  201:
+    description: User created
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/RegistrationResponseSchema.yaml'
+  400:
+    $ref: '../../../components/responses/400.yaml'
+  409:
+    $ref: '../../../components/responses/409.yaml'
+  500:
+    $ref: ../../../components/responses/500.yaml

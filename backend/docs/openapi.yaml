@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Recipes App
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of students app
+tags:
+  - name: Auth
+    description: Auth operations.
+  - name: Users
+    description: Users operations.
+  - name: Recipes
+    description: Recipes operations.
+  - name: Categories
+    description: Categories operations.
+  - name: Ingredients
+    description: Ingridients operations.
+servers:
+  - url: https://fullstack-recipes-backend-ssa1.onrender.com
+paths:
+  /api/auth/register:
+    post:
+      $ref: '../swagger/paths/api/auth/register.yaml'
+  /api/auth/login:
+    post:
+      $ref: '../swagger/paths/api/auth/login.yaml'
+  /api/auth/refresh:
+    post:
+      $ref: '../swagger/paths/api/auth/refresh.yaml'
+  /api/auth/logout:
+    post:
+      $ref: '../swagger/paths/api/auth/logout.yaml'
+  /api/users/current:
+    get:
+      $ref: '../swagger/paths/users/get.yaml'
+  /api/categories:
+    get:
+      $ref: '../swagger/paths/categories/get.yaml'
+  /api/ingredients:
+    get:
+      $ref: '../swagger/paths/ingredients/get.yaml'
+  /api/recipes:
+    get:
+      $ref: '../swagger/paths/recipes/get.yaml'
+    post:
+      $ref: '../swagger/paths/recipes/post.yaml'
+  /api/recipes/own:
+    get:
+      $ref: '../swagger/paths/recipes/own/get.yaml'
+  /api/recipes/{id}:
+    get:
+      $ref: '../swagger/paths/recipes/{id}/get.yaml'
+  /api/recipes/favorite:
+    get:
+      $ref: '../swagger/paths/recipes/favorite/get.yaml'
+    post:
+      $ref: '../swagger/paths/recipes/favorite/post.yaml'
+  /api/recipes/favorite/{id}:
+    delete:
+      $ref: '../swagger/paths/recipes/favorite/{id}/delete.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    Unauthorized:
+      $ref: '../swagger/components/responses/401.yaml'
+    Forbidden:
+      $ref: '../swagger/components/responses/403.yaml'
+    BadRequest:
+      $ref: '../swagger/components/responses/400.yaml'
+    NotFound:
+      $ref: '../swagger/components/responses/404.yaml'
+
+security:
+  - bearerAuth: []

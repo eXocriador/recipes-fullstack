@@ -1,0 +1,20 @@
+type: array
+items:
+  type: object
+  properties:
+    _id:
+      type: string
+      example: '60f7ad8b1234567890abcdef'
+    name:
+      type: string
+      example: 'Tomato'
+    desc:
+      type: string
+      example: 'Fresh and juicy tomatoes'
+    img:
+      type: string
+      example: 'https://example.com/images/tomato.png'
+  required:
+    - _id
+    - name
+    - img

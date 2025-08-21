@@ -1,0 +1,23 @@
+.ingredientsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ingredientsTitle {
+  font-weight: 600;
+  font-size: 32px;
+}
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  list-style-type: disc;
+  padding-left: 16px;
+}
+
+/* 768px styles repeat 320px*/
+
+/* 1280px styles repeat 320px */
