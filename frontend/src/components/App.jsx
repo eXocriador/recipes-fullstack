@@ -1,28 +1,28 @@
-import css from "./App.module.css";
-import Layout from "../components/Layout/Layout.jsx";
-import { Toaster } from "react-hot-toast";
-import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage.jsx";
-import ListWrapper from "./ListWrapper/ListWrapper.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, refreshUser } from "../redux/auth/operations.js";
+import css from './App.module.css';
+import Layout from './layout/Layout.jsx';
+import { Toaster } from 'react-hot-toast';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import MainPage from '../pages/MainPage.jsx';
+import ListWrapper from './ui/ListWrapper/ListWrapper.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfo, refreshUser } from '../redux/auth/operations.js';
 import {
   selectUserData,
   selectIsLoggedIn,
   selectToken,
-} from "../redux/auth/selectors.js";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage.jsx";
-import { fetchCategories } from "../redux/categories/operations.js";
-import { fetchIngredients } from "../redux/ingredients/operations.js";
-import { fetchByPages } from "../redux/recipes/operations.js";
+} from '../redux/auth/selectors.js';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
+import { fetchCategories } from '../redux/categories/operations.js';
+import { fetchIngredients } from '../redux/ingredients/operations.js';
+import { fetchByPages } from '../redux/recipes/operations.js';
 
 const AuthPage = lazy(() => import(`../pages/AuthPage.jsx`));
 const AddRecipePage = lazy(() => import(`../pages/AddRecipePage.jsx`));
 const ProfilePage = lazy(() => import(`../pages/ProfilePage/ProfilePage.jsx`));
 const RecipeViewPage = lazy(() => import(`../pages/RecipeViewPage.jsx`));
-const RestrictedRoute = lazy(() => import(`./RestrictedRoute.jsx`));
-const PrivateRoute = lazy(() => import(`./PrivateRoute.jsx`));
+const RestrictedRoute = lazy(() => import(`./routes/RestrictedRoute.jsx`));
+const PrivateRoute = lazy(() => import(`./routes/PrivateRoute.jsx`));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function App() {
 
   useEffect(() => {
     if (token && !isLoggedIn) {
-      dispatch(refreshUser()).then((action) => {
+      dispatch(refreshUser()).then(action => {
         if (refreshUser.fulfilled.match(action)) {
           dispatch(getUserInfo());
         }
@@ -54,54 +54,65 @@ export default function App() {
       <Toaster
         toastOptions={{
           duration: 3000,
-          position: "top-left",
+          position: 'top-left',
           style: {
-            background: "var(--light-brown)",
-            color: "var(--white)",
-            fontSize: "12px",
-            borderRadius: "8px",
+            background: 'var(--light-brown)',
+            color: 'var(--white)',
+            fontSize: '12px',
+            borderRadius: '8px',
           },
         }}
       />
       <div className={css.mainApp}>
         <Suspense fallback={<span className={css.loader}></span>}>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path='/' element={<Layout />}>
               <Route index element={<MainPage />} />
 
               <Route
-                path="auth/:authType"
+                path='auth/:authType'
                 element={
-                  <RestrictedRoute component={<AuthPage />} redirectTo="/" />
+                  <RestrictedRoute component={<AuthPage />} redirectTo='/' />
                 }
               />
 
               <Route
-                path="add-recipe"
+                path='add-recipe'
                 element={
                   <PrivateRoute
                     component={<AddRecipePage />}
-                    redirectTo="/auth/login"
+                    redirectTo='/auth/login'
                   />
                 }
               />
 
               <Route
-                path="profile"
+                path='profile'
                 element={
                   <PrivateRoute
                     component={<ProfilePage />}
-                    redirectTo="/auth/login"
+                    redirectTo='/auth/login'
                   />
                 }
               >
-                <Route path=":recipeType" element={<ListWrapper />} />
-                <Route path="*" element={<NotFoundPage />} />
+                <Route
+                  path=':recipeType'
+                  element={
+                    <ListWrapper
+                      filter={{ page: 1 }}
+                      setFilter={() => {}}
+                      isSearched={false}
+                      isModalOpen={false}
+                      setSearchQuery={() => {}}
+                    />
+                  }
+                />
+                <Route path='*' element={<NotFoundPage />} />
               </Route>
 
-              <Route path="recipes/:id" element={<RecipeViewPage />} />
+              <Route path='recipes/:id' element={<RecipeViewPage />} />
 
-              <Route path="*" element={<NotFoundPage />} />
+              <Route path='*' element={<NotFoundPage />} />
             </Route>
           </Routes>
         </Suspense>

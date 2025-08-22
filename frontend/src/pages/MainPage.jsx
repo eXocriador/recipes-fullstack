@@ -1,16 +1,16 @@
-import { useState } from "react";
-import SearchBox from "../components/SearchBox/SearchBox";
-import ModalErrorWhileSaving from "../components/ModalErrorWhileSaving/ModalErrorWhileSaving";
-import ListWrapper from "../components/ListWrapper/ListWrapper";
-import Container from "../components/container/container";
+import { useState } from 'react';
+import SearchBox from '../components/ui/SearchBox/SearchBox';
+import ModalErrorWhileSaving from '../components/modals/ModalErrorWhileSaving/ModalErrorWhileSaving';
+import ListWrapper from '../components/ui/ListWrapper/ListWrapper';
+import Container from '../components/common/Container/Container';
 const MainPage = () => {
   const [filter, setFilter] = useState({
-    category: "",
-    ingredient: "",
-    title: "",
+    category: '',
+    ingredient: '',
+    title: '',
     page: 1,
   });
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [isSearched, setIsSearched] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onClose = () => {

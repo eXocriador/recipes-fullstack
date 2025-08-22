@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
-import Container from "../../components/container/container.jsx";
-import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation.jsx";
-import style from "./ProfilePage.module.css";
+import { Outlet } from 'react-router-dom';
+import Container from '../../components/common/Container/Container.jsx';
+import ProfileNavigation from '../../components/navigation/ProfileNavigation/ProfileNavigation.jsx';
+import style from './ProfilePage.module.css';
 
 export default function ProfilePage() {
   return (

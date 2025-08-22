@@ -23,13 +23,17 @@ import {
 const router = Router();
 
 function parseIngredients(req, res, next) {
+  console.log('parseIngredients middleware - req.body:', req.body);
   if (req.body.ingredients && typeof req.body.ingredients === 'string') {
     try {
       req.body.ingredients = JSON.parse(req.body.ingredients);
-    } catch {
+      console.log('Parsed ingredients:', req.body.ingredients);
+    } catch (error) {
+      console.log('Failed to parse ingredients:', error);
       // Якщо не валідний JSON — Joi відловить помилку
     }
   }
+  console.log('parseIngredients completed, req.body:', req.body);
   next();
 }
 

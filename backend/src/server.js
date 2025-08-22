@@ -47,10 +47,6 @@ export const startServer = () => {
 
   app.use(
     '/api-docs',
-    (req, res, next) => {
-      console.log('Request for Swagger UI received');
-      next();
-    },
     swaggerUIExpress.serve,
     swaggerUIExpress.setup(swaggerDocument),
   );

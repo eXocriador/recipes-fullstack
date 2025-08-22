@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   login,
   logOut,
   refreshUser,
   register,
   getUserInfo,
-} from "./operations";
-import { setAuthHeader, clearAuthHeader } from "./operations";
+} from './operations';
+import { setAuthHeader, clearAuthHeader } from './operations';
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     user: {
       name: null,
@@ -20,9 +20,9 @@ const authSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  extraReducers: (builder) =>
+  extraReducers: builder =>
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(register.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -35,7 +35,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(login.pending, (state) => {
+      .addCase(login.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -50,11 +50,11 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(logOut.pending, (state) => {
+      .addCase(logOut.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         clearAuthHeader();
@@ -67,7 +67,7 @@ const authSlice = createSlice({
         state.error = action.payload.message;
       })
 
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshUser.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -82,7 +82,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(getUserInfo.pending, (state) => {
+      .addCase(getUserInfo.pending, state => {
         state.isLoading = true;
         state.error = null;
       })

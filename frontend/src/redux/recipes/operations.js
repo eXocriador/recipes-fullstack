@@ -1,10 +1,10 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { authInstance } from "../auth/operations";
-import { setAuthHeader } from "../auth/operations";
+import { authInstance } from '../auth/operations';
+import { setAuthHeader } from '../auth/operations';
 
 export const fetchByPages = createAsyncThunk(
-  "recipes/fetchAll",
+  'recipes/fetchAll',
   async ({ page, perPage = 12 }, thunkAPI) => {
     try {
       const res = await authInstance.get(
@@ -18,9 +18,9 @@ export const fetchByPages = createAsyncThunk(
 );
 
 export const fetchByFilters = createAsyncThunk(
-  "recipes/fetchByFilters",
+  'recipes/fetchByFilters',
   async (
-    { page, perPage = 12, category = "", ingredient = "", title = "" },
+    { page, perPage = 12, category = '', ingredient = '', title = '' },
     thunkAPI
   ) => {
     try {
@@ -35,7 +35,7 @@ export const fetchByFilters = createAsyncThunk(
 );
 
 export const fetchById = createAsyncThunk(
-  "/recipes/:id",
+  '/recipes/:id',
   async (id, thunkAPI) => {
     try {
       const res = await authInstance.get(`/recipes/${id}`);
@@ -47,7 +47,7 @@ export const fetchById = createAsyncThunk(
 );
 
 export const fetchOwnRecipes = createAsyncThunk(
-  "recipes/fetchOwnRecipes",
+  'recipes/fetchOwnRecipes',
   async ({ page = 1, perPage = 12 }, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
@@ -60,14 +60,13 @@ export const fetchOwnRecipes = createAsyncThunk(
       );
       return res.data;
     } catch (error) {
-      throw error;
-    } finally {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const fetchFavouriteRecipes = createAsyncThunk(
-  "recipes/fetchFavouriteRecipes",
+  'recipes/fetchFavouriteRecipes',
   async ({ page = 1, perPage = 12 }, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
@@ -80,14 +79,13 @@ export const fetchFavouriteRecipes = createAsyncThunk(
       );
       return res.data;
     } catch (error) {
-      throw error;
-    } finally {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const addRecipe = createAsyncThunk(
-  "recipes/addrecipe",
+  'recipes/addrecipe',
   async (payload, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
@@ -95,30 +93,30 @@ export const addRecipe = createAsyncThunk(
       setAuthHeader(persistedToken);
 
       let requestData;
-      let config = {};
+      const config = {};
 
       if (payload.thumb && payload.thumb instanceof File) {
         const formData = new FormData();
-        formData.append("title", payload.title);
-        formData.append("category", payload.category);
-        formData.append("instructions", payload.instructions);
-        formData.append("description", payload.description);
-        formData.append("time", payload.time);
-        formData.append("ingredients", JSON.stringify(payload.ingredients));
+        formData.append('title', payload.title);
+        formData.append('category', payload.category);
+        formData.append('instructions', payload.instructions);
+        formData.append('description', payload.description);
+        formData.append('time', payload.time);
+        formData.append('ingredients', JSON.stringify(payload.ingredients));
         if (payload.calories) {
-          formData.append("calories", payload.calories);
+          formData.append('calories', payload.calories);
         }
-        formData.append("thumb", payload.thumb);
+        formData.append('thumb', payload.thumb);
 
         requestData = formData;
       } else {
         requestData = payload;
         config.headers = {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         };
       }
 
-      const res = await authInstance.post("/recipes", requestData, config);
+      const res = await authInstance.post('/recipes', requestData, config);
       return res.data;
     } catch (error) {
       const errorMessage =
@@ -130,21 +128,8 @@ export const addRecipe = createAsyncThunk(
   }
 );
 
-//  NO DELETING... FOR NOW!
-// export const deleterecipe = createAsyncThunk(
-//   "recipes/deleterecipe",
-//   async (taskId, thunkAPI) => {
-//     try {
-//       const res = await axios.delete(`recipes/${taskId}`);
-//       return res.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
 export const addFavouriteRecipe = createAsyncThunk(
-  "recipes/addFavouriteRecipe",
+  'recipes/addFavouriteRecipe',
   async (recipeId, thunkAPI) => {
     try {
       const res = await authInstance.post(`/recipes/favorite`, { recipeId });
@@ -156,7 +141,7 @@ export const addFavouriteRecipe = createAsyncThunk(
 );
 
 export const deleteFavouriteRecipe = createAsyncThunk(
-  "recipes/deleteFavouriteRecipe",
+  'recipes/deleteFavouriteRecipe',
   async (recipeId, thunkAPI) => {
     try {
       const res = await authInstance.delete(`/recipes/favorite/${recipeId}`);

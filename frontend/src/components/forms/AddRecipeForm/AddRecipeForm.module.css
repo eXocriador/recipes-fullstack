@@ -1,0 +1,378 @@
+.formContainer {
+  margin: 48px auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  max-width: 393px;
+  background-color: var(--background);
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formTitle {
+  font-weight: 600;
+  font-size: 40px;
+  margin: 0;
+}
+
+.savedIndicator {
+  font-size: 12px;
+  color: var(--gray-4);
+  font-weight: 500;
+}
+
+.clearButton {
+  background-color: var(--light-gray);
+  border: 1px solid var(--gray-3);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+  background-color: var(--gray-3);
+  border-color: var(--gray-4);
+}
+
+.clearButton:active {
+  transform: translateY(1px);
+}
+
+.sectionPhoto {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+.sectionTitlePhoto {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 8px;
+}
+
+.noImage {
+  position: relative;
+  width: 100%;
+  height: 382px;
+  border-radius: 16px;
+  background-color: var(--gray-3);
+  cursor: pointer;
+  background-position: center;
+}
+
+.photoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.iconPhoto {
+  position: absolute;
+  top: 40%;
+  right: 38%;
+  fill: none;
+  stroke: var(--black);
+  width: 82px;
+  height: 82px;
+}
+
+.globalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.sectionInformation,
+.sectionIngredients,
+.sectionInstructions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recipeParts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.titleText {
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--black);
+  padding-bottom: 8px;
+}
+
+.formInput {
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.textarea {
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  height: 144px;
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.recipeCalories {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.caloriesPart,
+.categoryPart {
+  width: 100%;
+}
+
+.titleParts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statusVisible {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--light-gray-3);
+  padding: 16px 0;
+}
+
+.statusInvisible {
+  display: none;
+}
+
+.ingredientRow {
+  position: relative;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid var(--light-gray-3);
+  padding: 16px 0;
+}
+
+.spanIngredientItem,
+.spanMeasureItem {
+  width: 50%;
+  font-weight: 600;
+  font-size: 16px;
+}
+.spanIngredient,
+.spanMeasure {
+  width: 50%;
+  font-weight: 400;
+  font-size: 16px;
+}
+.spanIcon {
+  position: absolute;
+  top: 30%;
+  right: 2%;
+  fill: none;
+  stroke: var(--black);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.button {
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 100%;
+  background: var(--light-brown);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--brown);
+  transform: scale(0.95);
+}
+
+.bntContainer {
+  margin-bottom: 48px;
+}
+.error {
+  color: var(--red);
+  font-size: 14px;
+  max-width: 120px;
+}
+.err {
+  border: 1px solid var(--red);
+}
+
+@media screen and (min-width: 768px) {
+  .formContainer {
+    max-width: 768px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .formTitle {
+    font-size: 48px;
+    padding-bottom: 16px;
+  }
+
+  .sectionTitlePhoto {
+    font-size: 32px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+    padding-bottom: 8px;
+  }
+
+  .iconPhoto {
+    top: 39%;
+    right: 43%;
+  }
+
+  .titleText {
+    font-size: 18px;
+  }
+
+  .sectionInformation,
+  .sectionIngredients {
+    gap: 24px;
+  }
+
+  .recipeParts {
+    gap: 32px;
+  }
+
+  .caloriesPart,
+  .categoryPart {
+    width: 100%;
+  }
+
+  .titleParts {
+    gap: 16px;
+  }
+  .titlePartsItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .itemName {
+    width: 430px;
+  }
+  .itemAmuont {
+    width: 250px;
+  }
+
+  .addBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .addButton {
+    padding: 8px;
+    width: 249px;
+  }
+
+  .addFieldForm {
+    max-width: 430px;
+  }
+
+  .statusVisible {
+    padding: 16px 0;
+  }
+
+  .statusInvisible {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid var(--light-gray-3);
+    padding: 16px 0;
+  }
+
+  .button:hover {
+    transform: scale(0.98);
+  }
+}
+@media screen and (min-width: 1440px) {
+  .formContainer {
+    max-width: 1226px;
+    padding: 0;
+  }
+  .mainRowContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  .sectionPhoto {
+    width: 390px;
+    padding-top: 32px;
+  }
+  .sectionTitlePhoto {
+    padding-bottom: 16px;
+  }
+  .noImage {
+    height: 374px;
+  }
+  .iconPhoto {
+    top: 38%;
+    right: 40%;
+  }
+
+  .globalContainer {
+    width: 810px;
+  }
+
+  .itemName {
+    width: 500px;
+  }
+  .itemAmuont {
+    width: 290px;
+  }
+
+  .addButton {
+    padding: 4px 8px;
+    width: 258px;
+  }
+
+  .statusVisible {
+    padding: 0px;
+  }
+
+  .statusInvisible {
+    padding: 0;
+  }
+  .ingredientRow {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .spanIcon {
+    top: 10%;
+    right: 2%;
+  }
+}
