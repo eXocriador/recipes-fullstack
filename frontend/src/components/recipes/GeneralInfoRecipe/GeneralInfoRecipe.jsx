@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 
 import css from './GeneralInfoRecipe.module.css';
 import Svg from '../../common/Svg/Svg';
+import { Spinner } from '../../common/Loader/Loader';
 import { selectIsLoggedIn } from '../../../redux/auth/selectors.js';
 import { selectFavoriteRecipes } from '../../../redux/recipes/selectors.js';
 import {
@@ -88,8 +89,14 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
         type='button'
         disabled={loading}
       >
-        {loading ? 'Loading...' : isFav ? 'Remove' : 'Save'}
-        <Svg styles={css.icon} name='bookmark' />
+        {loading ? (
+          <Spinner size='small' />
+        ) : (
+          <>
+            {isFav ? 'Remove' : 'Save'}
+            <Svg styles={css.icon} name='bookmark' />
+          </>
+        )}
       </button>
     </div>
   );

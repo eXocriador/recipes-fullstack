@@ -1,6 +1,7 @@
 import { NavLink, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Svg from '../../common/Svg/Svg';
+import { Spinner } from '../../common/Loader/Loader';
 import style from './RecipeCard.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,6 +17,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
   const idLoggedIn = useSelector(selectIsLoggedIn);
   const { recipeType } = useParams();
   const [isFavouriteState, setIsFavouriteState] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const isFavourite = favourites?.some(fav => fav === recipeCard._id);
 
@@ -24,6 +26,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
   }, [isFavourite]);
 
   const handleDeleteFavourite = async () => {
+    setIsLoading(true);
     toast.error('Deleting');
     try {
       if (recipeCard._id) {
@@ -37,6 +40,8 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
       }
     } catch (error) {
       toast.error('Something went wrong');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -45,6 +50,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
       isModalOpen(true);
       return;
     }
+    setIsLoading(true);
     toast.success('Adding');
     try {
       if (recipeCard._id) {
@@ -57,8 +63,42 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
       }
     } catch (error) {
       toast.error('Something went wrong');
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const renderFavouriteButton = () => {
+    if (isLoading) {
+      return (
+        <div className={style.svg1Wrapper}>
+          <Spinner size='small' />
+        </div>
+      );
+    }
+
+    if (recipeType === 'own') {
+      return null;
+    }
+
+    if (isFavouriteState) {
+      return (
+        <div
+          onClick={handleDeleteFavourite}
+          className={style.svg1WrapperActive}
+        >
+          <Svg styles={style.svg1Active} name='bookmark' />
+        </div>
+      );
+    }
+
+    return (
+      <div onClick={handleAddFavourite} className={style.svg1Wrapper}>
+        <Svg styles={style.svg1} name='bookmark' />
+      </div>
+    );
+  };
+
   return (
     <div className={style.recipeCardWrapper}>
       <div className={style.imgWrapper}>
@@ -86,18 +126,7 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
         >
           Learn more
         </NavLink>
-        {recipeType === 'own' ? null : isFavouriteState ? (
-          <div
-            onClick={handleDeleteFavourite}
-            className={style.svg1WrapperActive}
-          >
-            <Svg styles={style.svg1Active} name='bookmark' />
-          </div>
-        ) : (
-          <div onClick={handleAddFavourite} className={style.svg1Wrapper}>
-            <Svg styles={style.svg1} name='bookmark' />
-          </div>
-        )}
+        {renderFavouriteButton()}
       </div>
     </div>
   );
