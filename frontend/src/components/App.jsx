@@ -1,5 +1,5 @@
 import css from './App.module.css';
-import Layout from './layout/Layout.jsx';
+import { Layout } from './layout/Layout.jsx';
 import { Toaster } from 'react-hot-toast';
 import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
