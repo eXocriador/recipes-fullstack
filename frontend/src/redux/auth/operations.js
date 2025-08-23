@@ -3,15 +3,26 @@ import axiosInstance, {
   setAuthHeader,
   clearAuthHeader,
 } from '../axiosInstance';
+import { retryWithBackoff, isNetworkError } from '../utils/networkUtils';
+import { AUTH_CONSTANTS } from '../constants/auth';
 
 export const register = createAsyncThunk(
   'auth/register',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await axiosInstance.post('/auth/register', formData);
+      const { data } = await retryWithBackoff(() =>
+        axiosInstance.post('/auth/register', formData)
+      );
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (isNetworkError(error)) {
+        return thunkAPI.rejectWithValue(
+          'Network error - please check your connection'
+        );
+      }
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -20,21 +31,39 @@ export const login = createAsyncThunk(
   'auth/login',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await axiosInstance.post('/auth/login', formData);
+      const { data } = await retryWithBackoff(() =>
+        axiosInstance.post('/auth/login', formData)
+      );
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (isNetworkError(error)) {
+        return thunkAPI.rejectWithValue(
+          'Network error - please check your connection'
+        );
+      }
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const { data } = await axiosInstance.post('/auth/logout');
+    const { data } = await retryWithBackoff(() =>
+      axiosInstance.post('/auth/logout')
+    );
     clearAuthHeader();
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    // Always clear auth header on logout attempt, even if it fails
+    clearAuthHeader();
+    if (isNetworkError(error)) {
+      return thunkAPI.rejectWithValue('Network error during logout');
+    }
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || error.message
+    );
   }
 });
 
@@ -45,15 +74,26 @@ export const refreshUser = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+      return thunkAPI.rejectWithValue(
+        'Unable to fetch user - no token available'
+      );
     }
 
     try {
       setAuthHeader(persistedToken);
-      const { data } = await axiosInstance.post('/auth/refresh');
+      const { data } = await retryWithBackoff(
+        () => axiosInstance.post('/auth/refresh'),
+        AUTH_CONSTANTS.REFRESH_MAX_RETRIES,
+        AUTH_CONSTANTS.REFRESH_RETRY_DELAY
+      );
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (isNetworkError(error)) {
+        return thunkAPI.rejectWithValue('Network error during token refresh');
+      }
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -65,15 +105,26 @@ export const getUserInfo = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+      return thunkAPI.rejectWithValue(
+        'Unable to fetch user - no token available'
+      );
     }
 
     try {
       setAuthHeader(persistedToken);
-      const { data } = await axiosInstance.get('/users/current');
+      const { data } = await retryWithBackoff(() =>
+        axiosInstance.get('/users/current')
+      );
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (isNetworkError(error)) {
+        return thunkAPI.rejectWithValue(
+          'Network error - please check your connection'
+        );
+      }
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );

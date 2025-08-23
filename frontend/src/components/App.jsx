@@ -34,15 +34,21 @@ export default function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (token && !isLoggedIn) {
       dispatch(refreshUser()).then(action => {
-        if (refreshUser.fulfilled.match(action)) {
+        if (isMounted && refreshUser.fulfilled.match(action)) {
           dispatch(getUserInfo());
         }
       });
-    } else if (isLoggedIn) {
+    } else if (isLoggedIn && token) {
       dispatch(getUserInfo());
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, token, isLoggedIn]);
 
   useEffect(() => {

@@ -9,9 +9,6 @@ import 'modern-normalize/modern-normalize.css';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
-// Setup axios interceptors after store is created
-setupAxios();
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -26,3 +23,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </PersistGate>
   </Provider>
 );
+
+// Setup axios interceptors AFTER store is mounted and available
+setTimeout(() => setupAxios(), 0);
