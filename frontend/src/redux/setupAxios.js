@@ -3,10 +3,8 @@ import { store } from './store';
 import { refreshUser, logOut } from './auth/operations';
 import { updateToken, clearCorruptedToken } from './auth/slice';
 import AuthMonitor from './utils/authMonitor';
-import { createAutoCleanup } from './utils/autoCleanup';
 
 let authMonitor = null;
-let autoCleanup = null;
 
 // Function to clean up corrupted tokens on startup
 const cleanupCorruptedTokensOnStartup = () => {
@@ -83,20 +81,13 @@ export const setupAxios = () => {
   authMonitor = new AuthMonitor(store, refreshUser);
   authMonitor.start();
 
-  // Start automatic cleanup
-  autoCleanup = createAutoCleanup(store, clearCorruptedToken);
-  autoCleanup.start();
-
   // Make axios instance available globally for debugging
   import('./axiosInstance').then(({ default: axiosInstance }) => {
     window.axiosInstance = axiosInstance;
   });
 
-  console.log('🚀 Axios interceptors, auth monitor, and auto cleanup configured');
+  console.log('🚀 Axios interceptors and auth monitor configured');
 };
 
 // Export auth monitor for external control
 export const getAuthMonitor = () => authMonitor;
-
-// Export auto cleanup for external control
-export const getAutoCleanup = () => autoCleanup;

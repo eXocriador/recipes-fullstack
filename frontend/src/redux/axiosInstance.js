@@ -57,7 +57,10 @@ const isTokenValid = token => {
   // Check if token has the correct JWT format (3 parts separated by dots)
   const tokenParts = token.split('.');
   if (tokenParts.length !== 3) {
-    console.error('❌ Token does not have correct JWT format (3 parts):', tokenParts.length);
+    console.error(
+      '❌ Token does not have correct JWT format (3 parts):',
+      tokenParts.length
+    );
     return false;
   }
 
@@ -70,7 +73,7 @@ const isTokenValid = token => {
   try {
     // Validate that the payload part is valid base64
     const payload = tokenParts[1];
-    
+
     // Check if payload contains only valid base64 characters
     if (!/^[A-Za-z0-9+/]*={0,2}$/.test(payload)) {
       console.error('❌ Token payload contains invalid base64 characters');
@@ -79,10 +82,10 @@ const isTokenValid = token => {
 
     // Try to decode the payload
     const decodedPayload = atob(payload);
-    
+
     // Try to parse as JSON
     const parsedPayload = JSON.parse(decodedPayload);
-    
+
     // Check if payload has required fields
     if (!parsedPayload.exp || typeof parsedPayload.exp !== 'number') {
       console.error('❌ Token payload missing or invalid exp field');
@@ -104,13 +107,19 @@ const isTokenValid = token => {
     console.error('❌ Error parsing JWT token:', error);
     console.error('❌ Token value:', token);
     console.error('❌ Token parts:', tokenParts);
-    
+
     // Log additional debugging info
     if (token && token.length > 100) {
-      console.error('❌ Token preview (first 50 chars):', token.substring(0, 50));
-      console.error('❌ Token preview (last 50 chars):', token.substring(token.length - 50));
+      console.error(
+        '❌ Token preview (first 50 chars):',
+        token.substring(0, 50)
+      );
+      console.error(
+        '❌ Token preview (last 50 chars):',
+        token.substring(token.length - 50)
+      );
     }
-    
+
     return false;
   }
 };
@@ -118,7 +127,7 @@ const isTokenValid = token => {
 // Function to clean up corrupted tokens
 const cleanupCorruptedToken = (store, logOut, clearCorruptedToken) => {
   console.warn('🧹 Cleaning up corrupted token...');
-  
+
   // Clear from localStorage
   try {
     localStorage.removeItem('persist:auth');
@@ -126,7 +135,7 @@ const cleanupCorruptedToken = (store, logOut, clearCorruptedToken) => {
   } catch (error) {
     console.error('❌ Error clearing localStorage:', error);
   }
-  
+
   // Clear from Redux store
   try {
     store.dispatch(clearCorruptedToken());
@@ -240,13 +249,13 @@ export const configureInterceptors = (
         console.warn('⚠️ Token is invalid or corrupted, cleaning up...');
         // Clean up corrupted token
         cleanupCorruptedToken(store, logOut, clearCorruptedToken);
-        
+
         // Force page reload to ensure clean state
         console.log('🔄 Reloading page to ensure clean state...');
         setTimeout(() => {
           window.location.reload();
         }, 1000);
-        
+
         // Don't set header for invalid token
       } else {
         console.log('⚠️ Request without token');
@@ -292,30 +301,30 @@ export const configureInterceptors = (
         // Create a single refresh promise to avoid multiple refresh calls
         if (!refreshPromise) {
           refreshPromise = new Promise((resolve, reject) => {
-                    // Get current state to access refresh token
-        const state = store.getState();
-        const currentToken = state.auth.token;
-        
-        // Check if current token is valid before attempting refresh
-        if (!currentToken || !isTokenValid(currentToken)) {
-          console.error('❌ Current token is invalid, cannot refresh');
-          cleanupCorruptedToken(store, logOut, clearCorruptedToken);
-          
-          // Force page reload to ensure clean state
-          console.log('🔄 Reloading page to ensure clean state...');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-          
-          processQueue(new Error('Invalid token'), null);
-          reject(new Error('Invalid token'));
-          return;
-        }
-        
-        console.log(
-          '🔑 Current token for refresh:',
-          currentToken ? currentToken.substring(0, 10) + '...' : 'null'
-        );
+            // Get current state to access refresh token
+            const state = store.getState();
+            const currentToken = state.auth.token;
+
+            // Check if current token is valid before attempting refresh
+            if (!currentToken || !isTokenValid(currentToken)) {
+              console.error('❌ Current token is invalid, cannot refresh');
+              cleanupCorruptedToken(store, logOut, clearCorruptedToken);
+
+              // Force page reload to ensure clean state
+              console.log('🔄 Reloading page to ensure clean state...');
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+
+              processQueue(new Error('Invalid token'), null);
+              reject(new Error('Invalid token'));
+              return;
+            }
+
+            console.log(
+              '🔑 Current token for refresh:',
+              currentToken ? currentToken.substring(0, 10) + '...' : 'null'
+            );
 
             // Use retry logic for refresh
             retryWithBackoff(
