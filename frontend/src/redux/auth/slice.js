@@ -6,7 +6,6 @@ import {
   register,
   getUserInfo,
 } from './operations';
-import { setAuthHeader, clearAuthHeader } from './operations';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -27,6 +26,16 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.error = null;
       state.isLoading = false;
+
+      console.log(
+        '🔄 updateToken reducer called with token:',
+        action.payload.accessToken.substring(0, 10) + '...'
+      );
+
+      // Update axios headers with new token
+      import('../axiosInstance').then(({ setAuthHeader }) => {
+        setAuthHeader(action.payload.accessToken);
+      });
     },
     clearError: state => {
       state.error = null;
@@ -40,6 +49,13 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.error = 'Token corrupted, please login again';
       state.isLoading = false;
+
+      console.log('🧹 clearCorruptedToken reducer called');
+
+      // Clear axios headers
+      import('../axiosInstance').then(({ clearAuthHeader }) => {
+        clearAuthHeader();
+      });
     },
   },
   extraReducers: builder =>
@@ -66,6 +82,16 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
+
+        console.log(
+          '🔄 login.fulfilled called with token:',
+          action.payload.data.accessToken.substring(0, 10) + '...'
+        );
+
+        // Update axios headers with new token
+        import('../axiosInstance').then(({ setAuthHeader }) => {
+          setAuthHeader(action.payload.data.accessToken);
+        });
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
@@ -78,10 +104,16 @@ const authSlice = createSlice({
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
-        clearAuthHeader();
         state.isLoggedIn = false;
         state.isLoading = false;
         state.error = null;
+
+        console.log('🚪 logOut.fulfilled called');
+
+        // Clear axios headers
+        import('../axiosInstance').then(({ clearAuthHeader }) => {
+          clearAuthHeader();
+        });
       })
       .addCase(logOut.rejected, (state, action) => {
         state.isLoading = false;
@@ -98,6 +130,16 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
+
+        console.log(
+          '🔄 refreshUser.fulfilled called with token:',
+          action.payload.data.accessToken.substring(0, 10) + '...'
+        );
+
+        // Update axios headers with new token
+        import('../axiosInstance').then(({ setAuthHeader }) => {
+          setAuthHeader(action.payload.data.accessToken);
+        });
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -119,9 +161,16 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.user = { name: null, email: null };
         state.token = null;
-        clearAuthHeader();
+
+        console.log('❌ getUserInfo.rejected called');
+
+        // Clear axios headers
+        import('../axiosInstance').then(({ clearAuthHeader }) => {
+          clearAuthHeader();
+        });
       }),
 });
 
-export const { updateToken, clearError, setLoading, clearCorruptedToken } = authSlice.actions;
+export const { updateToken, clearError, setLoading, clearCorruptedToken } =
+  authSlice.actions;
 export const authReducer = authSlice.reducer;

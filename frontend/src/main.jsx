@@ -36,4 +36,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 
 // Setup axios interceptors AFTER store is mounted and available
-setTimeout(() => setupAxios(), 100);
+setupAxios();

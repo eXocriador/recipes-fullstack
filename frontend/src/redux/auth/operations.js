@@ -35,9 +35,6 @@ export const login = createAsyncThunk(
         axiosInstance.post('/auth/login', formData)
       );
 
-      // Set auth header after successful login
-      setAuthHeader(data.data.accessToken);
-
       return data;
     } catch (error) {
       if (isNetworkError(error)) {
@@ -57,11 +54,9 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     const { data } = await retryWithBackoff(() =>
       axiosInstance.post('/auth/logout')
     );
-    clearAuthHeader();
     return data;
   } catch (error) {
     // Always clear auth header on logout attempt, even if it fails
-    clearAuthHeader();
     if (isNetworkError(error)) {
       return thunkAPI.rejectWithValue('Network error during logout');
     }
@@ -84,15 +79,11 @@ export const refreshUser = createAsyncThunk(
     }
 
     try {
-      setAuthHeader(persistedToken);
       const { data } = await retryWithBackoff(
         () => axiosInstance.post('/auth/refresh'),
         AUTH_CONSTANTS.REFRESH_MAX_RETRIES,
         AUTH_CONSTANTS.REFRESH_RETRY_DELAY
       );
-
-      // Set auth header with new token after successful refresh
-      setAuthHeader(data.data.accessToken);
 
       return data;
     } catch (error) {
@@ -119,7 +110,6 @@ export const getUserInfo = createAsyncThunk(
     }
 
     try {
-      setAuthHeader(persistedToken);
       const { data } = await retryWithBackoff(() =>
         axiosInstance.get('/users/current')
       );

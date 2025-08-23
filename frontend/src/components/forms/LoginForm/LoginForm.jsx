@@ -32,7 +32,6 @@ export default function LoginForm() {
   const handleSubmit = (values, actions) => {
     dispatch(login(values))
       .unwrap()
-      .then(() => dispatch(getUserInfo()))
       .then(() => {
         toast.success('Login successful! 👏');
         navigate('/');

@@ -227,6 +227,11 @@ export const configureInterceptors = (
   }
 
   console.log('🔧 Configuring axios interceptors...');
+  console.log('🔧 Store state during configuration:', {
+    hasStore: !!store,
+    hasGetState: !!store?.getState,
+    authState: store?.getState?.()?.auth,
+  });
 
   // Configure request interceptor
   axiosInstance.interceptors.request.clear();
@@ -238,6 +243,17 @@ export const configureInterceptors = (
       console.log(`🔍 Request interceptor for: ${config.url}`);
       console.log(`🔑 Token available: ${!!token}`);
       console.log(`🔐 Is logged in: ${state.auth.isLoggedIn}`);
+      console.log(
+        `📤 Existing Authorization header: ${!!config.headers.Authorization}`
+      );
+
+      // Check if Authorization header is already set
+      if (config.headers.Authorization) {
+        console.log(
+          '✅ Authorization header already set, skipping interceptor'
+        );
+        return config;
+      }
 
       if (token && isTokenValid(token)) {
         config.headers['Authorization'] = `Bearer ${token}`;
@@ -418,6 +434,14 @@ export const configureInterceptors = (
 export const setAuthHeader = token => {
   if (token && isTokenValid(token)) {
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    console.log(
+      '🔑 Auth header set for axios instance:',
+      token.substring(0, 10) + '...'
+    );
+    console.log(
+      '🔑 Default headers after setAuthHeader:',
+      axiosInstance.defaults.headers.common
+    );
   } else if (token) {
     console.warn('⚠️ Attempting to set invalid token as auth header');
     // Don't set invalid token

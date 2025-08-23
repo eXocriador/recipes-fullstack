@@ -78,6 +78,19 @@ export const setupAxios = () => {
     clearCorruptedToken
   );
 
+  // Set auth header for existing token if available
+  const state = store.getState();
+  const token = state.auth.token;
+  if (token) {
+    console.log('🔑 Setting auth header for existing token in setupAxios...');
+    import('./axiosInstance').then(({ setAuthHeader }) => {
+      setAuthHeader(token);
+      console.log('✅ Auth header set in setupAxios');
+    });
+  } else {
+    console.log('🔍 No existing token found in setupAxios');
+  }
+
   // Start authentication monitor
   authMonitor = new AuthMonitor(store, refreshUser);
   authMonitor.start();
