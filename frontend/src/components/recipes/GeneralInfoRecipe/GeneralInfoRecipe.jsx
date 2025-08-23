@@ -50,11 +50,11 @@ export default function GeneralInfoRecipe({ category, time, calories, id }) {
       if (isFav) {
         setOptimisticFav(false);
         await dispatch(deleteFavouriteRecipe(id)).unwrap();
-        toast.success('Recipe removed from favorites');
+        toast.success('Recipe removed from favorites', { id: `remove-${id}` });
       } else {
         setOptimisticFav(true);
         await dispatch(addFavouriteRecipe(id)).unwrap();
-        toast.success('Recipe added to favorites');
+        toast.success('Recipe added to favorites', { id: `add-${id}` });
       }
     } catch (err) {
       toast.error(err?.message || 'Something went wrong');

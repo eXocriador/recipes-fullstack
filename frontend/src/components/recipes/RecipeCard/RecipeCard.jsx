@@ -27,7 +27,6 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
 
   const handleDeleteFavourite = async () => {
     setIsLoading(true);
-    toast.error('Deleting');
     try {
       if (recipeCard._id) {
         await dispatch(deleteFavouriteRecipe(recipeCard._id))
@@ -35,8 +34,10 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
           .catch(err => {})
           .then(() => {
             setIsFavouriteState(false);
+            toast.success('Removed from favourites', {
+              id: `remove-${recipeCard._id}`,
+            });
           });
-        toast.success('Removed from favourites');
       }
     } catch (error) {
       toast.error('Something went wrong');
@@ -51,15 +52,16 @@ export default function RecipeCard({ recipeCard, isModalOpen, favourites }) {
       return;
     }
     setIsLoading(true);
-    toast.success('Adding');
     try {
       if (recipeCard._id) {
         await dispatch(addFavouriteRecipe(recipeCard._id))
           .unwrap()
           .then(() => {
             setIsFavouriteState(true);
+            toast.success('Added to favourites', {
+              id: `add-${recipeCard._id}`,
+            });
           });
-        toast.success('Added to favourites');
       }
     } catch (error) {
       toast.error('Something went wrong');

@@ -40,7 +40,6 @@ import { fetchIngredients } from '../../../redux/ingredients/operations.js';
 import { selectIngredients } from '../../../redux/ingredients/selectors.js';
 
 import { addRecipe } from '../../../redux/recipes/operations.js';
-import { refreshUser } from '../../../redux/auth/operations.js';
 
 export default function AddRecipeForm() {
   // Load saved form data from localStorage

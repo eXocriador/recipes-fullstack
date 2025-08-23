@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import createHttpError from 'http-errors';
 import Session from '../../db/models/auth/session.js';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../../constants/index.js';
+import { THIRTY_SECONDS, ONE_HOUR } from '../../constants/index.js';
 
 export const refreshUserSession = async (sessionId, refreshToken) => {
   const session = await Session.findById(sessionId);
@@ -27,8 +27,8 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
     {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
-      accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-      refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+      accessTokenValidUntil: new Date(Date.now() + THIRTY_SECONDS),
+      refreshTokenValidUntil: new Date(Date.now() + ONE_HOUR),
     },
     { new: true },
   );

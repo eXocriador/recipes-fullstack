@@ -7,8 +7,6 @@ import Burger from '../../navigation/Burger/Burger.jsx';
 import MobileMenu from '../../navigation/MobileMenu/MobileMenu.jsx';
 import ScrollHeader from '../ScrollHeader/ScrollHeader.jsx';
 
-// import RefreshToken from '../RefreshToken/RefrehsToken.jsx'
-
 export default function Header({
   toggleModal,
   mobileMenuHandler,

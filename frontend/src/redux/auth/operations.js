@@ -1,24 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const authInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
-});
-authInstance.defaults.withCredentials = true;
-
-export const setAuthHeader = token => {
-  authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-export const clearAuthHeader = () => {
-  authInstance.defaults.headers.common.Authorization = '';
-};
+import axiosInstance, {
+  setAuthHeader,
+  clearAuthHeader,
+} from '../axiosInstance';
 
 export const register = createAsyncThunk(
   'auth/register',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await authInstance.post('/auth/register', formData);
+      const { data } = await axiosInstance.post('/auth/register', formData);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -30,7 +20,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await authInstance.post('/auth/login', formData);
+      const { data } = await axiosInstance.post('/auth/login', formData);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -40,7 +30,7 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const { data } = await authInstance.post('/auth/logout');
+    const { data } = await axiosInstance.post('/auth/logout');
     clearAuthHeader();
     return data;
   } catch (error) {
@@ -60,7 +50,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const { data } = await authInstance.post('/auth/refresh');
+      const { data } = await axiosInstance.post('/auth/refresh');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -80,10 +70,13 @@ export const getUserInfo = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const { data } = await authInstance.get('/users/current');
+      const { data } = await axiosInstance.get('/users/current');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+// Export helper functions for backward compatibility
+export { setAuthHeader, clearAuthHeader };

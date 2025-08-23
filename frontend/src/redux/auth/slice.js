@@ -20,6 +20,14 @@ const authSlice = createSlice({
     isLoading: false,
     error: null,
   },
+  reducers: {
+    updateToken: (state, action) => {
+      state.token = action.payload.accessToken;
+      state.user = action.payload.user;
+      state.isLoggedIn = true;
+      state.error = null;
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(register.pending, state => {
@@ -73,14 +81,16 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
+        state.token = action.payload.data.accessToken;
+        setAuthHeader(action.payload.data.accessToken);
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
-        state.token = action.payload.data.accessToken;
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload.message;
+        // Don't clear token on refresh failure - let axios interceptor handle logout
       })
       .addCase(getUserInfo.pending, state => {
         state.isLoading = true;
@@ -101,4 +111,5 @@ const authSlice = createSlice({
       }),
 });
 
+export const { updateToken } = authSlice.actions;
 export const authReducer = authSlice.reducer;

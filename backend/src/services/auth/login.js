@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
 import User from '../../db/models/auth/user.js';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../../constants/index.js';
+import { THIRTY_SECONDS, ONE_HOUR } from '../../constants/index.js';
 import Session from '../../db/models/auth/session.js';
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
@@ -22,7 +22,7 @@ export const loginUser = async (payload) => {
     userId: user._id,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+    accessTokenValidUntil: new Date(Date.now() + THIRTY_SECONDS),
+    refreshTokenValidUntil: new Date(Date.now() + ONE_HOUR),
   });
 };

@@ -54,12 +54,14 @@ export default function App() {
       <Toaster
         toastOptions={{
           duration: 3000,
-          position: 'top-left',
+          position: 'bottom-center',
           style: {
             background: 'var(--light-brown)',
             color: 'var(--white)',
-            fontSize: '12px',
+            fontSize: '14px',
             borderRadius: '8px',
+            padding: '12px 16px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
           },
         }}
       />
