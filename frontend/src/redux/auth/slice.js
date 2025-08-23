@@ -56,7 +56,6 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.token = action.payload.data.accessToken;
-        setAuthHeader(action.payload.data.accessToken);
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
@@ -89,7 +88,6 @@ const authSlice = createSlice({
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
         state.token = action.payload.data.accessToken;
-        setAuthHeader(action.payload.data.accessToken);
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;

@@ -9,6 +9,14 @@ import 'modern-normalize/modern-normalize.css';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
+// Import debug utilities for development
+import './utils/debugAuth';
+import './utils/testLogin';
+
+// Make store available globally for debugging
+window.store = store;
+window.axiosInstance = null; // Will be set by setupAxios
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -25,4 +33,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 
 // Setup axios interceptors AFTER store is mounted and available
-setTimeout(() => setupAxios(), 0);
+setTimeout(() => setupAxios(), 100);

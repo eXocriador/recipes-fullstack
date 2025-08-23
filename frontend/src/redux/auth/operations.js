@@ -34,6 +34,10 @@ export const login = createAsyncThunk(
       const { data } = await retryWithBackoff(() =>
         axiosInstance.post('/auth/login', formData)
       );
+
+      // Set auth header after successful login
+      setAuthHeader(data.data.accessToken);
+
       return data;
     } catch (error) {
       if (isNetworkError(error)) {
@@ -86,6 +90,10 @@ export const refreshUser = createAsyncThunk(
         AUTH_CONSTANTS.REFRESH_MAX_RETRIES,
         AUTH_CONSTANTS.REFRESH_RETRY_DELAY
       );
+
+      // Set auth header with new token after successful refresh
+      setAuthHeader(data.data.accessToken);
+
       return data;
     } catch (error) {
       if (isNetworkError(error)) {

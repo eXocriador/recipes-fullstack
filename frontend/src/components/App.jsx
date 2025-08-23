@@ -36,14 +36,29 @@ export default function App() {
   useEffect(() => {
     let isMounted = true;
 
+    // Only refresh user if we have a token but user is not logged in
+    // This prevents unnecessary calls after successful login
     if (token && !isLoggedIn) {
+      console.log('🔄 Refreshing user session...');
       dispatch(refreshUser()).then(action => {
         if (isMounted && refreshUser.fulfilled.match(action)) {
+          console.log('✅ User session refreshed, fetching user info...');
           dispatch(getUserInfo());
+        } else if (isMounted && refreshUser.rejected.match(action)) {
+          console.log('❌ Failed to refresh user session');
         }
       });
-    } else if (isLoggedIn && token) {
-      dispatch(getUserInfo());
+    }
+    // Only fetch user info if we're logged in and have a token
+    // Add small delay to ensure token is properly set
+    else if (isLoggedIn && token) {
+      console.log('👤 Fetching user info...');
+      // Small delay to ensure token is properly set in axios headers
+      setTimeout(() => {
+        if (isMounted) {
+          dispatch(getUserInfo());
+        }
+      }, 100);
     }
 
     return () => {

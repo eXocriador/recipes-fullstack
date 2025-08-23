@@ -50,9 +50,18 @@ const isTokenValid = token => {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const currentTime = Date.now() / 1000;
-    // Consider token valid if it expires in more than 30 seconds
-    return payload.exp > currentTime + 30;
-  } catch {
+    const timeUntilExpiry = payload.exp - currentTime;
+
+    // Token is valid if it expires in more than 5 seconds (more lenient for new tokens)
+    const isValid = timeUntilExpiry > 5;
+
+    if (!isValid) {
+      console.log(`⚠️ Token expires in ${Math.round(timeUntilExpiry)} seconds`);
+    }
+
+    return isValid;
+  } catch (error) {
+    console.error('❌ Error parsing token:', error);
     return false;
   }
 };
@@ -111,12 +120,39 @@ export const configureInterceptors = (
   logOut,
   updateToken
 ) => {
+  // Validate parameters
+  if (!store || !store.getState) {
+    console.error('❌ Invalid store provided to configureInterceptors');
+    return;
+  }
+
+  if (typeof refreshUser !== 'function') {
+    console.error('❌ Invalid refreshUser function provided');
+    return;
+  }
+
+  if (typeof logOut !== 'function') {
+    console.error('❌ Invalid logOut function provided');
+    return;
+  }
+
+  if (typeof updateToken !== 'function') {
+    console.error('❌ Invalid updateToken function provided');
+    return;
+  }
+
+  console.log('🔧 Configuring axios interceptors...');
+
   // Configure request interceptor
   axiosInstance.interceptors.request.clear();
   axiosInstance.interceptors.request.use(
     config => {
       const state = store.getState();
       const token = state.auth.token;
+
+      console.log(`🔍 Request interceptor for: ${config.url}`);
+      console.log(`🔑 Token available: ${!!token}`);
+      console.log(`🔐 Is logged in: ${state.auth.isLoggedIn}`);
 
       if (token && isTokenValid(token)) {
         config.headers['Authorization'] = `Bearer ${token}`;
