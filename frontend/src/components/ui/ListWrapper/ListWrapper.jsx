@@ -141,7 +141,7 @@ export default function ListWrapper({
 
   return (
     <>
-      {isError && <b>Whoops, there was an error. Please reload...</b>}
+      {/* {isError && <b>Whoops, there was an error. Please reload...</b>} */}
 
       <Filters
         filter={filter}
