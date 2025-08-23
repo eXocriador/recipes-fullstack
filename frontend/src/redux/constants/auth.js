@@ -1,9 +1,9 @@
 // Authentication constants
 
 export const AUTH_CONSTANTS = {
-  // Token validation
-  TOKEN_EXPIRY_BUFFER: 30, // seconds before expiry to consider token invalid
-  REFRESH_THRESHOLD: 120, // seconds before expiry to trigger refresh
+  // Token validation (JWT tokens)
+  TOKEN_EXPIRY_BUFFER: 60, // 1 minute before expiry to consider token invalid
+  REFRESH_THRESHOLD: 300, // 5 minutes before expiry to trigger refresh
 
   // Timeouts
   REQUEST_TIMEOUT: 30000, // 30 seconds

@@ -53,7 +53,7 @@ class AuthMonitor {
         this.store.dispatch(this.refreshUser());
       }
     } catch (error) {
-      console.error('❌ Error parsing token:', error);
+      console.error('❌ Error parsing JWT token:', error);
     }
   }
 

@@ -10,18 +10,20 @@ export const testTokenValidation = token => {
     const timeUntilExpiry = payload.exp - currentTime;
 
     return {
-      valid: timeUntilExpiry > 30,
+      valid: timeUntilExpiry > 5,
       expiresIn: timeUntilExpiry,
       payload: {
         exp: payload.exp,
         iat: payload.iat,
         userId: payload.userId || 'unknown',
+        email: payload.email,
+        name: payload.name,
       },
     };
   } catch (error) {
     return {
       valid: false,
-      reason: 'Invalid token format',
+      reason: 'Invalid JWT token format',
       error: error.message,
     };
   }

@@ -1,4 +1,6 @@
-import { randomBytes } from 'crypto';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 import createHttpError from 'http-errors';
 import Session from '../../db/models/auth/session.js';
 import { THIRTY_SECONDS, ONE_HOUR } from '../../constants/index.js';
@@ -19,8 +21,23 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
     throw createHttpError(401, 'Refresh token expired');
   }
 
-  const newAccessToken = randomBytes(30).toString('base64');
-  const newRefreshToken = randomBytes(30).toString('base64');
+  const newAccessToken = jwt.sign(
+    {
+      userId: session.userId,
+      email: 'user@example.com',
+      name: 'User',
+    },
+    JWT_SECRET,
+    { expiresIn: '30m' },
+  );
+
+  const newRefreshToken = jwt.sign(
+    {
+      userId: session.userId,
+    },
+    JWT_SECRET,
+    { expiresIn: '7d' },
+  );
 
   const updatedSession = await Session.findByIdAndUpdate(
     sessionId,

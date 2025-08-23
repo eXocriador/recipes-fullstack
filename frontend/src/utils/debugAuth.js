@@ -35,9 +35,12 @@ export const debugAuthState = () => {
           issuedAt: new Date(payload.iat * 1000).toISOString(),
           expiresAt: new Date(payload.exp * 1000).toISOString(),
           isValid: timeUntilExpiry > 5,
+          userId: payload.userId,
+          email: payload.email,
+          name: payload.name,
         });
       } catch (error) {
-        console.error('❌ Error parsing token:', error);
+        console.error('❌ Error parsing JWT token:', error);
       }
     }
 

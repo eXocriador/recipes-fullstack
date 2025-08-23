@@ -47,12 +47,13 @@ const processQueue = (error, token = null) => {
 // Token validation utility
 const isTokenValid = token => {
   if (!token) return false;
+
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const currentTime = Date.now() / 1000;
     const timeUntilExpiry = payload.exp - currentTime;
 
-    // Token is valid if it expires in more than 5 seconds (more lenient for new tokens)
+    // Token is valid if it expires in more than 5 seconds
     const isValid = timeUntilExpiry > 5;
 
     if (!isValid) {
@@ -61,7 +62,7 @@ const isTokenValid = token => {
 
     return isValid;
   } catch (error) {
-    console.error('❌ Error parsing token:', error);
+    console.error('❌ Error parsing JWT token:', error);
     return false;
   }
 };

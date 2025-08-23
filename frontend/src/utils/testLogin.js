@@ -126,11 +126,13 @@ export const testTokenValidation = () => {
       payload: {
         exp: payload.exp,
         iat: payload.iat,
-        userId: payload.userId || 'unknown',
+        userId: payload.userId,
+        email: payload.email,
+        name: payload.name,
       },
     });
   } catch (error) {
-    console.error('❌ Token validation failed:', error);
+    console.error('❌ JWT token validation failed:', error);
   }
 };
 
