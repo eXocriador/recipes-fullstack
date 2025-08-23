@@ -48,10 +48,49 @@ const processQueue = (error, token = null) => {
 const isTokenValid = token => {
   if (!token) return false;
 
+  // Check if token is a string
+  if (typeof token !== 'string') {
+    console.error('❌ Token is not a string:', typeof token, token);
+    return false;
+  }
+
+  // Check if token has the correct JWT format (3 parts separated by dots)
+  const tokenParts = token.split('.');
+  if (tokenParts.length !== 3) {
+    console.error('❌ Token does not have correct JWT format (3 parts):', tokenParts.length);
+    return false;
+  }
+
+  // Check if all parts are non-empty
+  if (tokenParts.some(part => !part)) {
+    console.error('❌ Token has empty parts');
+    return false;
+  }
+
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    // Validate that the payload part is valid base64
+    const payload = tokenParts[1];
+    
+    // Check if payload contains only valid base64 characters
+    if (!/^[A-Za-z0-9+/]*={0,2}$/.test(payload)) {
+      console.error('❌ Token payload contains invalid base64 characters');
+      return false;
+    }
+
+    // Try to decode the payload
+    const decodedPayload = atob(payload);
+    
+    // Try to parse as JSON
+    const parsedPayload = JSON.parse(decodedPayload);
+    
+    // Check if payload has required fields
+    if (!parsedPayload.exp || typeof parsedPayload.exp !== 'number') {
+      console.error('❌ Token payload missing or invalid exp field');
+      return false;
+    }
+
     const currentTime = Date.now() / 1000;
-    const timeUntilExpiry = payload.exp - currentTime;
+    const timeUntilExpiry = parsedPayload.exp - currentTime;
 
     // Token is valid if it expires in more than 5 seconds
     const isValid = timeUntilExpiry > 5;
@@ -63,7 +102,37 @@ const isTokenValid = token => {
     return isValid;
   } catch (error) {
     console.error('❌ Error parsing JWT token:', error);
+    console.error('❌ Token value:', token);
+    console.error('❌ Token parts:', tokenParts);
+    
+    // Log additional debugging info
+    if (token && token.length > 100) {
+      console.error('❌ Token preview (first 50 chars):', token.substring(0, 50));
+      console.error('❌ Token preview (last 50 chars):', token.substring(token.length - 50));
+    }
+    
     return false;
+  }
+};
+
+// Function to clean up corrupted tokens
+const cleanupCorruptedToken = (store, logOut, clearCorruptedToken) => {
+  console.warn('🧹 Cleaning up corrupted token...');
+  
+  // Clear from localStorage
+  try {
+    localStorage.removeItem('persist:auth');
+    console.log('✅ Cleared corrupted token from localStorage');
+  } catch (error) {
+    console.error('❌ Error clearing localStorage:', error);
+  }
+  
+  // Clear from Redux store
+  try {
+    store.dispatch(clearCorruptedToken());
+    console.log('✅ Cleared corrupted token from Redux store');
+  } catch (error) {
+    console.error('❌ Error clearing Redux store:', error);
   }
 };
 
@@ -119,7 +188,8 @@ export const configureInterceptors = (
   store,
   refreshUser,
   logOut,
-  updateToken
+  updateToken,
+  clearCorruptedToken
 ) => {
   // Validate parameters
   if (!store || !store.getState) {
@@ -139,6 +209,11 @@ export const configureInterceptors = (
 
   if (typeof updateToken !== 'function') {
     console.error('❌ Invalid updateToken function provided');
+    return;
+  }
+
+  if (typeof clearCorruptedToken !== 'function') {
+    console.error('❌ Invalid clearCorruptedToken function provided');
     return;
   }
 
@@ -162,8 +237,17 @@ export const configureInterceptors = (
           token.substring(0, 10) + '...'
         );
       } else if (token && !isTokenValid(token)) {
-        console.warn('⚠️ Token expired, will trigger refresh');
-        // Don't set header for expired token - let response interceptor handle it
+        console.warn('⚠️ Token is invalid or corrupted, cleaning up...');
+        // Clean up corrupted token
+        cleanupCorruptedToken(store, logOut, clearCorruptedToken);
+        
+        // Force page reload to ensure clean state
+        console.log('🔄 Reloading page to ensure clean state...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        
+        // Don't set header for invalid token
       } else {
         console.log('⚠️ Request without token');
       }
@@ -208,13 +292,30 @@ export const configureInterceptors = (
         // Create a single refresh promise to avoid multiple refresh calls
         if (!refreshPromise) {
           refreshPromise = new Promise((resolve, reject) => {
-            // Get current state to access refresh token
-            const state = store.getState();
-            const currentToken = state.auth.token;
-            console.log(
-              '🔑 Current token for refresh:',
-              currentToken ? currentToken.substring(0, 10) + '...' : 'null'
-            );
+                    // Get current state to access refresh token
+        const state = store.getState();
+        const currentToken = state.auth.token;
+        
+        // Check if current token is valid before attempting refresh
+        if (!currentToken || !isTokenValid(currentToken)) {
+          console.error('❌ Current token is invalid, cannot refresh');
+          cleanupCorruptedToken(store, logOut, clearCorruptedToken);
+          
+          // Force page reload to ensure clean state
+          console.log('🔄 Reloading page to ensure clean state...');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          
+          processQueue(new Error('Invalid token'), null);
+          reject(new Error('Invalid token'));
+          return;
+        }
+        
+        console.log(
+          '🔑 Current token for refresh:',
+          currentToken ? currentToken.substring(0, 10) + '...' : 'null'
+        );
 
             // Use retry logic for refresh
             retryWithBackoff(
@@ -292,6 +393,13 @@ export const configureInterceptors = (
         }
       }
 
+      // Check if error is related to invalid token
+      if (error.message && error.message.includes('InvalidCharacterError')) {
+        console.error('🚨 Invalid token error detected, cleaning up...');
+        // This will be handled by the request interceptor on next request
+        // But we can also clean up here if needed
+      }
+
       return Promise.reject(error);
     }
   );
@@ -301,6 +409,9 @@ export const configureInterceptors = (
 export const setAuthHeader = token => {
   if (token && isTokenValid(token)) {
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else if (token) {
+    console.warn('⚠️ Attempting to set invalid token as auth header');
+    // Don't set invalid token
   }
 };
 

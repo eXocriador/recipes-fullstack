@@ -31,7 +31,11 @@ export const startServer = () => {
     cors({
       origin: process.env.ALLOWED_ORIGINS
         ? process.env.ALLOWED_ORIGINS.split(',')
-        : ['http://localhost:5173'],
+        : [
+            'http://localhost:5173',
+            'https://recipes.exocriador.dev', // Add your production domain
+            'https://recipes-fullstack-8rxx.onrender.com', // Add backend domain for testing
+          ],
       credentials: true,
     }),
   );

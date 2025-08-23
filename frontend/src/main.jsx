@@ -12,6 +12,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 // Import debug utilities for development
 import './utils/debugAuth';
 import './utils/testLogin';
+import './utils/testJWT';
+import './utils/testAll';
+import './utils/testAutoCleanup';
 
 // Make store available globally for debugging
 window.store = store;

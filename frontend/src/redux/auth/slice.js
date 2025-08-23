@@ -34,6 +34,13 @@ const authSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    clearCorruptedToken: state => {
+      state.token = null;
+      state.user = { name: null, email: null };
+      state.isLoggedIn = false;
+      state.error = 'Token corrupted, please login again';
+      state.isLoading = false;
+    },
   },
   extraReducers: builder =>
     builder
@@ -116,5 +123,5 @@ const authSlice = createSlice({
       }),
 });
 
-export const { updateToken, clearError, setLoading } = authSlice.actions;
+export const { updateToken, clearError, setLoading, clearCorruptedToken } = authSlice.actions;
 export const authReducer = authSlice.reducer;
