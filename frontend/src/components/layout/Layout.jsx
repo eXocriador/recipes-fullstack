@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Footer from './Footer/Footer.jsx';
 import ModalMenuLogout from '../modals/ModalMenuLogout/ModalMenuLogout.jsx';
 import { useState } from 'react';
+
 export default function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handlerModalMenu = () => {
