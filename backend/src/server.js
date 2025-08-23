@@ -14,9 +14,21 @@ import path from 'node:path';
 import fs from 'node:fs';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
-const swaggerDocument = JSON.parse(
-  fs.readFileSync(path.resolve('docs', 'swagger.json'), 'utf-8'),
-);
+
+// Load swagger document safely
+let swaggerDocument = null;
+try {
+  const swaggerPath = path.resolve('docs', 'swagger.json');
+  if (fs.existsSync(swaggerPath)) {
+    swaggerDocument = JSON.parse(fs.readFileSync(swaggerPath, 'utf-8'));
+  } else {
+    console.warn(
+      '⚠️ Swagger documentation file not found, API docs will be disabled',
+    );
+  }
+} catch (error) {
+  console.warn('⚠️ Error loading swagger documentation:', error.message);
+}
 
 export const startServer = () => {
   const app = express();
@@ -42,17 +54,24 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(
     pino({
-      transport: {
-        target: 'pino-pretty',
-      },
+      transport:
+        process.env.NODE_ENV === 'development'
+          ? {
+              target: 'pino-pretty',
+            }
+          : undefined,
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
     }),
   );
 
-  app.use(
-    '/api-docs',
-    swaggerUIExpress.serve,
-    swaggerUIExpress.setup(swaggerDocument),
-  );
+  // Setup swagger UI only if documentation is available
+  if (swaggerDocument) {
+    app.use(
+      '/api-docs',
+      swaggerUIExpress.serve,
+      swaggerUIExpress.setup(swaggerDocument),
+    );
+  }
 
   app.get('/', (req, res) => {
     res.json({
@@ -64,7 +83,7 @@ export const startServer = () => {
         ingredients: '/api/ingredients',
         users: '/api/users',
       },
-      docs: '/api-docs',
+      docs: swaggerDocument ? '/api-docs' : 'Not available',
       healthcheck: '/health',
     });
   });

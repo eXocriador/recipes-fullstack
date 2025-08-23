@@ -11,42 +11,37 @@ const cleanupCorruptedTokensOnStartup = () => {
   try {
     const state = store.getState();
     const token = state.auth.token;
-    
+
     if (token) {
-      // Import the JWT testing utility
-      import('./utils/testJWT').then(({ testJWTToken }) => {
-        console.log('🔍 Checking token validity on startup...');
-        
-        // Test the token
-        const isValid = testJWTToken(token);
-        
-        if (!isValid) {
-          console.warn('🧹 Detected corrupted token on startup, cleaning up...');
-          store.dispatch(clearCorruptedToken());
-          
-          // Also clear from localStorage
-          try {
-            localStorage.removeItem('persist:auth');
-            console.log('✅ Cleared corrupted token from localStorage on startup');
-          } catch (error) {
-            console.error('❌ Error clearing localStorage on startup:', error);
-          }
-          
-          // Force page reload to ensure clean state
-          console.log('🔄 Reloading page to ensure clean state...');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        } else {
-          console.log('✅ Token is valid on startup');
+      // Simple check - if token doesn't look like JWT, clear it
+      if (typeof token !== 'string' || token.split('.').length !== 3) {
+        console.warn('🧹 Detected corrupted token on startup, cleaning up...');
+        store.dispatch(clearCorruptedToken());
+
+        // Clear from localStorage
+        try {
+          localStorage.removeItem('persist:auth');
+          console.log(
+            '✅ Cleared corrupted token from localStorage on startup'
+          );
+        } catch (error) {
+          console.error('❌ Error clearing localStorage on startup:', error);
         }
-      });
+
+        // Force page reload to ensure clean state
+        console.log('🔄 Reloading page to ensure clean state...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        console.log('✅ Token looks valid on startup');
+      }
     } else {
       console.log('🔍 No token found on startup');
     }
   } catch (error) {
     console.error('❌ Error during startup token cleanup:', error);
-    
+
     // If there's an error during cleanup, also clear everything and reload
     try {
       store.dispatch(clearCorruptedToken());
@@ -71,11 +66,17 @@ export const setupAxios = () => {
   }
 
   console.log('🚀 Setting up axios interceptors...');
-  
+
   // Clean up corrupted tokens first
   cleanupCorruptedTokensOnStartup();
-  
-  configureInterceptors(store, refreshUser, logOut, updateToken, clearCorruptedToken);
+
+  configureInterceptors(
+    store,
+    refreshUser,
+    logOut,
+    updateToken,
+    clearCorruptedToken
+  );
 
   // Start authentication monitor
   authMonitor = new AuthMonitor(store, refreshUser);
