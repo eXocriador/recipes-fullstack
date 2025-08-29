@@ -51,16 +51,16 @@ npm run start:frontend
 
 ## 📋 Available Scripts
 
-| Script               | Description                       |
-| -------------------- | --------------------------------- |
-| `npm run dev`        | Start both servers simultaneously |
-| `npm run dev:backend`| Start backend only                |
-| `npm run dev:frontend`| Start frontend only               |
-| `npm run build`      | Build both projects               |
-| `npm run lint`       | Run linting for both projects     |
-| `npm run lint:fix`   | Fix linting issues                |
-| `npm run format`     | Format code with Prettier         |
-| `npm run install:all`| Install all dependencies          |
+| Script                 | Description                       |
+| ---------------------- | --------------------------------- |
+| `npm run dev`          | Start both servers simultaneously |
+| `npm run dev:backend`  | Start backend only                |
+| `npm run dev:frontend` | Start frontend only               |
+| `npm run build`        | Build both projects               |
+| `npm run lint`         | Run linting for both projects     |
+| `npm run lint:fix`     | Fix linting issues                |
+| `npm run format`       | Format code with Prettier         |
+| `npm run install:all`  | Install all dependencies          |
 
 ## 🌐 Ports
 
@@ -71,6 +71,7 @@ npm run start:frontend
 ## 🔧 Technologies
 
 ### Backend
+
 - Node.js + Express.js
 - MongoDB + Mongoose
 - JWT authentication
@@ -78,6 +79,7 @@ npm run start:frontend
 - Swagger documentation
 
 ### Frontend
+
 - React 19
 - Redux Toolkit
 - Vite
