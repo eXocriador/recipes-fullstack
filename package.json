@@ -26,7 +26,7 @@
     "format": "npm run format:backend && npm run format:frontend",
     "format:backend": "cd backend && npm run format",
     "format:frontend": "cd frontend && npm run format",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
