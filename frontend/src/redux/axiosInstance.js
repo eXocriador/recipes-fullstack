@@ -92,9 +92,6 @@ export const configureInterceptors = (
       const token = state.auth.token;
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
-        console.log('📤 Request with token:', token.substring(0, 10) + '...');
-      } else {
-        console.log('⚠️ Request without token');
       }
       return config;
     },
@@ -110,13 +107,8 @@ export const configureInterceptors = (
 
       // Check if error is 401 and request hasn't been retried yet
       if (error.response?.status === 401 && !originalRequest._retry) {
-        console.log('🚨 401 error detected for:', originalRequest.url);
         // If refresh is already in progress, queue this request
         if (isRefreshing) {
-          console.log(
-            '⏳ Refresh in progress, queuing request for:',
-            originalRequest.url
-          );
           return new Promise(function (resolve, reject) {
             failedQueue.push({ resolve, reject });
           })
@@ -137,24 +129,13 @@ export const configureInterceptors = (
           // Get current state to access refresh token
           const state = store.getState();
           const currentToken = state.auth.token;
-          console.log(
-            '🔑 Current token for refresh:',
-            currentToken ? currentToken.substring(0, 10) + '...' : 'null'
-          );
 
           // Use separate axios instance for refresh to avoid circular dependency
           // Backend expects sessionId and refreshToken in cookies, not in Authorization header
-          console.log('🔄 Attempting token refresh...');
-          console.log('🍪 Cookies available:', document.cookie ? 'Yes' : 'No');
           refreshAxiosInstance
             .post('/auth/refresh')
             .then(response => {
-              console.log('📡 Refresh response:', response.data);
               const newAccessToken = response.data.data.accessToken;
-              console.log(
-                '✅ Token refresh successful, new token:',
-                newAccessToken.substring(0, 10) + '...'
-              );
 
               // Update default headers for future requests
               axiosInstance.defaults.headers.common['Authorization'] =
@@ -165,33 +146,20 @@ export const configureInterceptors = (
                 `Bearer ${newAccessToken}`;
 
               // Update Redux store with new token
-              console.log('🔄 Updating Redux store with new token...');
               store.dispatch(
                 updateToken({
                   accessToken: newAccessToken,
                   user: response.data.data.user,
                 })
               );
-              console.log('✅ Redux store updated with new token');
 
               // Process all queued requests with new token
               processQueue(null, newAccessToken);
-
-              // Verify token was updated in store
-              const updatedState = store.getState();
-              console.log(
-                '🔍 Token in store after update:',
-                updatedState.auth.token
-                  ? updatedState.auth.token.substring(0, 10) + '...'
-                  : 'null'
-              );
 
               // Retry the original request
               resolve(axiosInstance(originalRequest));
             })
             .catch(err => {
-              console.log('❌ Token refresh failed:', err.message);
-              console.log('❌ Error details:', err.response?.data || err);
               // Process all queued requests with error
               processQueue(err, null);
 

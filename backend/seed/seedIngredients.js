@@ -26,14 +26,8 @@ try {
   }));
 
   await Ingredient.deleteMany({});
-  console.log('Ingredient collection cleared');
-
   await Ingredient.insertMany(ingredients);
-  console.log('Ingredients seed successfully');
-
   await mongoose.disconnect();
-  console.log('MongoDB connection closed');
 } catch (error) {
-  console.error('Error seeding ingredients:', error);
   process.exit(1);
 }
