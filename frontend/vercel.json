@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://recipes-fullstack-8rxx.onrender.com/api/$1"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
