@@ -2,18 +2,18 @@ import { refreshUserSession } from '../../services/auth/sessions.js';
 import { ONE_HOUR } from '../../constants/index.js';
 
 const setupSession = (res, session) => {
-  res.cookie('refreshToken', session.refreshToken, {
+  // Для same-origin запитів (через Vercel rewrites) куки мають бути Lax
+  const cookieOptions = {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_HOUR),
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    secure: process.env.NODE_ENV === 'production',
-  });
-  res.cookie('sessionId', session.sessionId, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_HOUR),
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    secure: process.env.NODE_ENV === 'production',
-  });
+    secure: true, // HTTPS
+    sameSite: 'Lax', // Same-origin
+    path: '/',
+    // domain не потрібен для same-origin
+  };
+
+  res.cookie('refreshToken', session.refreshToken, cookieOptions);
+  res.cookie('sessionId', session.sessionId, cookieOptions);
 };
 
 export const refreshUserSessionController = async (req, res) => {

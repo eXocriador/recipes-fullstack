@@ -22,18 +22,18 @@ export const loginUserController = async (req, res) => {
     process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
   );
 
-  res.cookie('refreshToken', session.refreshToken, {
+  // Для same-origin запитів (через Vercel rewrites) куки мають бути Lax
+  const cookieOptions = {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_HOUR),
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    secure: process.env.NODE_ENV === 'production',
-  });
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_HOUR),
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    secure: process.env.NODE_ENV === 'production',
-  });
+    secure: true, // HTTPS
+    sameSite: 'Lax', // Same-origin
+    path: '/',
+    // domain не потрібен для same-origin
+  };
+
+  res.cookie('refreshToken', session.refreshToken, cookieOptions);
+  res.cookie('sessionId', session._id, cookieOptions);
   res.json({
     status: 200,
     message: 'Successfully logged in an user!',
